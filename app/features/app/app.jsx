@@ -7,12 +7,44 @@
 var React = require('react');
 var Slide = require('./slide');
 
-module.exports = React.createClass({
-    render() {
+// so far we fake the slide deck data
+// but consider that this informations should come asynchronously!
+var slides = [
+    'assets/slides/slides.001.jpg',
+    'assets/slides/slides.002.jpg',
+    'assets/slides/slides.003.jpg',
+    'assets/slides/slides.004.jpg',
+    'assets/slides/slides.005.jpg',
+    'assets/slides/slides.006.jpg',
+    'assets/slides/slides.007.jpg',
+    'assets/slides/slides.008.jpg',
+    'assets/slides/slides.009.jpg',
+    'assets/slides/slides.010.jpg',
+];
 
-        // Slide component can be reused with differend attributes
-        // to display different slides
-        return <Slide src="assets/slides/slides.009.jpg" />;
-        
+module.exports = React.createClass({
+
+    // the component "state" is a set of informations that can change from the inside
+    getInitialState() {
+        return {
+            currentSlideIndex: 0
+        };
+    },
+
+    // handle the click event that has been bubbled out from the Slide component.
+    // by changing the component's state we trigger a re-rendering.
+    _changeSlide() {
+        this.setState({
+            currentSlideIndex: this.state.currentSlideIndex + 1
+        });
+    },
+
+    render() {
+        // sometimes good old plain Javascript is way more readable than JSX!
+        return React.createElement(Slide, {
+            src: slides[this.state.currentSlideIndex],
+            onClick: this._changeSlide
+        });
     }
+
 });
