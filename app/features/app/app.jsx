@@ -1,41 +1,28 @@
 /**
  * FireSlide
- * main application entry point
+ * ControllerView
+ *
+ * this React component is the entry point of the whole application,
+ * it knows about data via store, so it becomes a Controller View
  *
  */
 
 var React = require('react');
 var SlideDeck = require('./slide-deck');
 
-// so far we fake the slide deck data
-// but consider that this informations should come asynchronously!
-var slides = [
-    'assets/slides/slides.001.jpg',
-    'assets/slides/slides.002.jpg',
-    'assets/slides/slides.003.jpg',
-    'assets/slides/slides.004.jpg',
-    'assets/slides/slides.005.jpg',
-    'assets/slides/slides.006.jpg',
-    'assets/slides/slides.007.jpg',
-    'assets/slides/slides.008.jpg',
-    'assets/slides/slides.009.jpg',
-    'assets/slides/slides.010.jpg',
-];
+var store = require('./store');
 
 module.exports = React.createClass({
 
-    // the component "state" is a set of informations that can change from the inside
-    getInitialState() {
-        return {
-            currentSlideIndex: 0
-        };
-    },
+    // the store mixin gives the initial state to the React component
+    // this is a really convenient way to tie a store to the UI's Controller View
+    mixins: [store.mixin()],
 
     render() {
         // sometimes good old plain Javascript is way more readable than JSX!
         return React.createElement(SlideDeck, {
-            slides: slides,
-            currentSlideIndex: this.state.currentSlideIndex
+            slides: this.state.slides,
+            current: this.state.current
         });
     }
 

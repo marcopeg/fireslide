@@ -16,11 +16,15 @@
 var React = require('react');
 var Slide = require('./slide');
 
+// store is a singletone so you get the very same object
+// everywehere you reference it!
+var store = require('./store');
+
 module.exports = React.createClass({
     
     propTypes: {
         slides: React.PropTypes.array.isRequired,
-        currentSlideIndex: React.PropTypes.number.isRequired
+        current: React.PropTypes.number.isRequired
     },
     
     getDefaultProps() {
@@ -31,7 +35,15 @@ module.exports = React.createClass({
     },
 
     render() {
-        return <Slide src={this.props.slides[this.props.currentSlideIndex]} />;
+        return React.createElement(Slide, {
+            src: this.props.slides[this.props.current],
+
+            // user actions are now propagated to the central store
+            // as "actions". actions must be accepted by the store.
+            onClick: function() {
+                store.trigger('next');
+            }
+        });
     }
 
 });
