@@ -15,7 +15,11 @@ React.render(
 
 // fade out the loading curtain
 setTimeout(function() {
-    document.getElementById('curtain').classList.add('active');
+    var curtain = document.getElementById('curtain');
+    curtain.addEventListener('webkitTransitionEnd', function() {
+        document.body.removeChild(curtain);
+    });
+    curtain.classList.add('active');
 }, 100);
 
 // Public API
