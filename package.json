@@ -1,0 +1,41 @@
+{
+  "name": "fireslide",
+  "version": "0.0.0",
+  "description": "ReactJS Slideware App Tutorial",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "gulp test",
+    "init": "./node_modules/gulp-workspace/bin/wks-init.js"
+  },
+  "keywords": [
+    "fireslide",
+    "slideware",
+    "slide",
+    "presentation",
+    "slideshow",
+    "react",
+    "reactjs",
+    "flux",
+    "firebase",
+    "sychronisation",
+    "remote"
+  ],
+  "author": {
+    "name": "Marco Pegoraro",
+    "url": "http://noBlackMagic.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcopeg/fireslide"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "devDependencies": {
+    "gulp-workspace": "0.0.x",
+    "lesshat": "^3.0.2"
+  }
+}

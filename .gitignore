@@ -1,0 +1,11 @@
+npm-debug.log
+node_modules
+/build/
+/coverage/
+
+app/assets/react-0.12.2/README.md
+app/assets/react-0.12.2/examples/
+app/assets/react-0.12.2/build/JSXTransformer.js
+app/assets/react-0.12.2/build/react-with-addons.min.js
+app/assets/react-0.12.2/build/react.js
+app/assets/react-0.12.2/build/react.min.js
