@@ -5,7 +5,7 @@
  */
 
 var React = require('react');
-var Slide = require('./slide');
+var SlideDeck = require('./slide-deck');
 
 // so far we fake the slide deck data
 // but consider that this informations should come asynchronously!
@@ -31,19 +31,11 @@ module.exports = React.createClass({
         };
     },
 
-    // handle the click event that has been bubbled out from the Slide component.
-    // by changing the component's state we trigger a re-rendering.
-    _changeSlide() {
-        this.setState({
-            currentSlideIndex: this.state.currentSlideIndex + 1
-        });
-    },
-
     render() {
         // sometimes good old plain Javascript is way more readable than JSX!
-        return React.createElement(Slide, {
-            src: slides[this.state.currentSlideIndex],
-            onClick: this._changeSlide
+        return React.createElement(SlideDeck, {
+            slides: slides,
+            currentSlideIndex: this.state.currentSlideIndex
         });
     }
 
