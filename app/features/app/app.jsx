@@ -8,9 +8,10 @@
  */
 
 var React = require('react');
+var Preload = require('./preload');
 var SlideDeck = require('./slide-deck');
 
-var store = require('./store');
+var store = require('app-store');
 
 module.exports = React.createClass({
 
@@ -19,11 +20,26 @@ module.exports = React.createClass({
     mixins: [store.mixin()],
 
     render() {
-        // sometimes good old plain Javascript is way more readable than JSX!
-        return React.createElement(SlideDeck, {
-            slides: this.state.slides,
-            current: this.state.current
-        });
+
+        var preload = null;
+        if (this.state.slides.length) {
+            preload = <Preload slides={this.state.slides} />;
+        }
+
+        var slideshow = null;
+        if (this.state.slidesAreReady) {
+            slideshow = React.createElement(SlideDeck, {
+                slides: this.state.slides,
+                current: this.state.current
+            });
+        }
+
+        return (
+            <div>
+                {preload}
+                {slideshow}
+            </div>
+        );
     }
 
 });
