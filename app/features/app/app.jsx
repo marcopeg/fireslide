@@ -10,9 +10,9 @@ var Slide = require('./slide');
 module.exports = React.createClass({
     render() {
 
-        // the entire app's UI implements our single instance
-        // of a Slide component
-        return React.createElement(Slide);
+        // Slide component can be reused with differend attributes
+        // to display different slides
+        return <Slide src="assets/slides/slides.009.jpg" />;
         
     }
 });

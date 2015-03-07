@@ -8,11 +8,12 @@ var React = require('react');
 
 module.exports = React.createClass({
     render() {
-
-        // LIVE >> turn this to JSX syntax
-        return React.DOM.div({
-            className: 'slide'
-        });
+        
+        var style = {
+            backgroundImage: 'url(' + this.props.src + ')'
+        };
+        
+        return <div className="slide" style={style} />;
 
     }
 });
