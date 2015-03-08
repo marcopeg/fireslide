@@ -28,6 +28,7 @@ var store = module.exports = Fluxo.createStore(true, {
         'set-slide',            // set current slide index
         'set-transition',
         'next',
+        'prev'
     ],
 
     mixins: [
@@ -79,19 +80,22 @@ var store = module.exports = Fluxo.createStore(true, {
         });
     },
 
-    // action data implementation
-    // here is defined how an action modifies the state in the store
     onNext() {
         var next = this.state.current + 1;
-
         if (next >= this.state.slides.length) {
             console.warn('There are no more slides!');
             return;
         }
+        this.trigger('set-slide', next);
+    },
 
-        this.setState({
-            current: next
-        });
+    onPrev() {
+        var prev = this.state.current - 1;
+        if (prev < 0) {
+            console.warn('There are no previous slides!');
+            return;
+        }
+        this.trigger('set-slide', prev);
     }
 
 });

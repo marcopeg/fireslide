@@ -4,7 +4,9 @@
  */
 
 var React = require('react');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Slide = require('elements/slide');
+var SlideButton = require('./slide-button');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
@@ -23,15 +25,32 @@ module.exports = React.createClass({
             current: 0
         };
     },
-
-    // user actions are now propagated to the central store
-    // as "actions". actions must be accepted by the store.
+    
     _onClick() {
         store.trigger('next');
     },
 
     render() {
-        return <Slide src={this.props.slides[this.props.current]} onClick={this._onClick} />;
+
+        var currentSrc = this.props.slides[this.props.current];
+        var prev = null;
+        var next = null;
+
+        if (this.props.current < this.props.slides.length - 1) {
+            next = <SlideButton key="cmd-next" action="next" src={this.props.slides[this.props.current+1]} />;
+        }
+
+        if (this.props.current > 0) {
+            prev = <SlideButton key="cmd-prev" action="prev" src={this.props.slides[this.props.current-1]} />;
+        }
+
+        return (
+            <ReactCSSTransitionGroup transitionName="fade">
+                <Slide key={currentSrc} src={currentSrc} onClick={this._onClick} />
+                {prev}
+                {next}
+            </ReactCSSTransitionGroup>
+        );
     }
 
 });
