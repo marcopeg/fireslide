@@ -32,11 +32,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        // sometimes good old plain Javascript is way more readable than JSX!
-        return React.createElement(SlideDeck, {
-            slides: slides,
-            currentSlideIndex: this.state.currentSlideIndex
-        });
+        return <SlideDeck slides={slides} currentSlideIndex={this.state.currentSlideIndex} />;
     }
 
 });
