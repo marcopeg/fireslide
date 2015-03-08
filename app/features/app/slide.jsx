@@ -11,7 +11,8 @@ module.exports = React.createClass({
     // this is a development helper attribute
     // use it extensively to improve implicit props documentation!
     propTypes: {
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        src: React.PropTypes.string.isRequired
     },
 
     render() {
