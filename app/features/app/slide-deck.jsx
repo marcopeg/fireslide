@@ -18,7 +18,7 @@ var Slide = require('./slide');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
-var store = require('app-store');
+var store = require('./store');
 
 module.exports = React.createClass({
     

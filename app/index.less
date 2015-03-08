@@ -56,3 +56,32 @@ html, body {
     // https://github.com/facebook/react/issues/134
     cursor: pointer;
 }
+
+.slides-preloader {
+    position: fixed;
+    top: 45%;
+    left: 10%;
+    display: block;
+    width: 80%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+// this can be improved quite a lot :-)
+.progress-bar {
+    position: relative;
+    display: inline-block;
+    height: 1px;
+    overflow: hidden;
+    background-color: #666;
+    text-align: left;
+    & > .progress {
+        .transition(width .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+        position: absolute;
+        top:0;
+        legt:0;
+        display: inline-block;
+        height: 1px;
+        background-color: lime;
+    }
+}

@@ -11,29 +11,38 @@ var React = require('react');
 var Preload = require('./preload');
 var SlideDeck = require('./slide-deck');
 
-var store = require('app-store');
+var store = require('./store');
 
 module.exports = React.createClass({
 
-    // the store mixin gives the initial state to the React component
-    // this is a really convenient way to tie a store to the UI's Controller View
     mixins: [store.mixin()],
 
     render() {
 
+        // compute all the logical informations that we need from the state
+        var dataIsReady = this.state.slides.length > 0;
+        var isPreloading = dataIsReady && this.state.cached < this.state.slides.length;
+        var isShowtime = dataIsReady && !isPreloading;
+
+        // split UI in many empty pieces that can be conditionally populated
         var preload = null;
-        if (this.state.slides.length) {
-            preload = <Preload slides={this.state.slides} />;
+        var slideshow = null;
+
+        // are we preloading?
+        if (isPreloading) {
+            preload = <Preload total={this.state.slides.length} cached={this.state.cached} />;
         }
 
-        var slideshow = null;
-        if (this.state.slidesAreReady) {
+        // is it show time?
+        if (isShowtime) {
             slideshow = React.createElement(SlideDeck, {
                 slides: this.state.slides,
                 current: this.state.current
             });
         }
 
+        // the main UI schema is a composition of high-level interface modules
+        // which receive properties from the central state.
         return (
             <div>
                 {preload}

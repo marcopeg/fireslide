@@ -16,7 +16,7 @@ exports.dev = function() {
         externals: {
             'react' : 'React',
             'firebase' : 'Firebase',
-            'slides-data' : 'slidesData'
+            'presentation-data' : 'mySlides'
         }
     };
 };
