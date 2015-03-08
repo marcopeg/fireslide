@@ -19,11 +19,7 @@ module.exports = React.createClass({
     mixins: [store.mixin()],
 
     render() {
-        // sometimes good old plain Javascript is way more readable than JSX!
-        return React.createElement(SlideDeck, {
-            slides: this.state.slides,
-            current: this.state.current
-        });
+        return <SlideDeck slides={this.state.slides} current={this.state.current} />;
     }
 
 });
