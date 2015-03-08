@@ -9,6 +9,9 @@ var App = require('app');
 var store = require('app/store');
 var router = require('jqb-router');
 
+// startup touch events handling
+React.initializeTouchEvents(true);
+
 // router actions communicate to the app store
 router.init({
     '/': function() {

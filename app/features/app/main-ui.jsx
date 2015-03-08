@@ -27,6 +27,7 @@ module.exports = React.createClass({
                         slides={this.props.slides} 
                         tips={this.props.tips} 
                         current={this.props.current} 
+                        useTouch={this.props.useTouch}
                         />
                 );
 

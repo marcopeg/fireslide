@@ -17,7 +17,8 @@ var store = module.exports = Fluxo.createStore(true, {
         cached: 0,
         current: 0,
         syncing: false,         // turn true after the first sync-value from firebase
-        transition: null        // visual transition for the slideshow
+        transition: null,       // visual transition for the slideshow
+        useTouch: isTouchDevice()  // whether to use touch optimised components
     },
 
     // actions manifesto
@@ -128,3 +129,13 @@ function cacheImage(src, done, timeout) {
     // setTimeout(function() {img.src = src;}, (Math.floor(Math.random()*25)+5)*100);
     img.src = src;
 }
+
+function isTouchDevice() {
+    try {  
+        document.createEvent("TouchEvent");
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+

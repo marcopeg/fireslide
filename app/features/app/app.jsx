@@ -45,6 +45,7 @@ module.exports = React.createClass({
                     tips={this.state.tips} 
                     current={this.state.current}
                     transition={this.state.transition}
+                    useTouch={this.state.useTouch}
                     />
             );
         }

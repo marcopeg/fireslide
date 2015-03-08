@@ -14,8 +14,33 @@ module.exports = React.createClass({
         action: React.PropTypes.string.isRequired
     },
 
+    getInitialState() {
+        return {
+            active: false
+        };
+    },
+
+    getDefaultProps() {
+        return {
+            useTouch: false
+        };
+    },
+
     _onClick() {
         store.trigger(this.props.action);
+    },
+
+    _touchStart() {
+        this.setState({
+            active: true
+        });
+    },
+
+    _touchEnd() {
+        store.trigger(this.props.action);
+        this.setState({
+            active: false
+        });
     },
 
     render() {
@@ -26,7 +51,16 @@ module.exports = React.createClass({
 
         var className = 'slide-button ' + this.props.action;
 
-        return <a className={className} onClick={this._onClick} style={style} />;
+        if (this.state.active) {
+            className += ' active';
+        }
+
+        if (this.props.useTouch) {
+            return <a className={className} style={style} onTouchStart={this._touchStart} onTouchEnd={this._touchEnd} />;
+        } else {
+            return <a className={className} style={style} onClick={this._onClick} />;
+        }
+
     }
 
 });

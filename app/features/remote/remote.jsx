@@ -18,7 +18,8 @@ module.exports = React.createClass({
     propTypes: {
         slides: React.PropTypes.array.isRequired,
         tips: React.PropTypes.array.isRequired,
-        current: React.PropTypes.number.isRequired
+        current: React.PropTypes.number.isRequired,
+        useTouch: React.PropTypes.bool.isRequired
     },
     
     getDefaultProps() {
@@ -43,11 +44,25 @@ module.exports = React.createClass({
         var slideHeight = 100;
 
         if (this.props.current < this.props.slides.length - 1) {
-            next = <SlideButton key="cmd-next" action="next" src={this.props.slides[this.props.current+1]} />;
+            next = (
+                <SlideButton 
+                    key="cmd-next"
+                    src={this.props.slides[this.props.current+1]}  
+                    action="next" 
+                    useTouch={this.props.useTouch}
+                    />
+                );
         }
 
         if (this.props.current > 0) {
-            prev = <SlideButton key="cmd-prev" action="prev" src={this.props.slides[this.props.current-1]} />;
+            prev = (
+                <SlideButton 
+                    key="cmd-prev"
+                    src={this.props.slides[this.props.current-1]}  
+                    action="prev" 
+                    useTouch={this.props.useTouch}
+                    />
+            );
         }
 
         if (this.props.tips[this.props.current]) {
@@ -58,8 +73,17 @@ module.exports = React.createClass({
 
         return (
             <ReactCSSTransitionGroup transitionName="fade">
-                <Slide key={currentSrc} src={currentSrc} onClick={this._onClick} height={slideHeight} />
-                <SlideTip text={tipText} height={tipHeight} />
+                <Slide 
+                    key={currentSrc} 
+                    src={currentSrc} 
+                    onClick={this._onClick} 
+                    height={slideHeight} 
+                    useTouch={this.props.useTouch}
+                    />
+                <SlideTip 
+                    text={tipText} 
+                    height={tipHeight} 
+                    />
                 {prev}
                 {next}
             </ReactCSSTransitionGroup>
