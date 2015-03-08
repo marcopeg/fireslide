@@ -40,11 +40,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        // sometimes good old plain Javascript is way more readable than JSX!
-        return React.createElement(Slide, {
-            src: slides[this.state.currentSlideIndex],
-            onClick: this._changeSlide
-        });
+        return <Slide src={slides[this.state.currentSlideIndex]} onClick={this._changeSlide} />;
     }
 
 });
