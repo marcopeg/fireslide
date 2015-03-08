@@ -34,16 +34,14 @@ module.exports = React.createClass({
         };
     },
 
-    render() {
-        return React.createElement(Slide, {
-            src: this.props.slides[this.props.current],
+    // user actions are now propagated to the central store
+    // as "actions". actions must be accepted by the store.
+    _next() {
+        store.trigger('next');
+    },
 
-            // user actions are now propagated to the central store
-            // as "actions". actions must be accepted by the store.
-            onClick: function() {
-                store.trigger('next');
-            }
-        });
+    render() {
+        return <Slide src={this.props.slides[this.props.current]} onClick={this._next} />;
     }
 
 });
