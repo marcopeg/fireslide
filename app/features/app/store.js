@@ -10,6 +10,7 @@ var store = module.exports = Fluxo.createStore(true, {
 
     // initial data schema
     initialState: {
+        mode: 'show',
         slides: [],
         cached: 0,
         current: 0
@@ -19,6 +20,7 @@ var store = module.exports = Fluxo.createStore(true, {
     actions: [
         'new-slides',           // slides data file is loaded from the server
         'slide-cache',          // a slingle slide has been cached
+        'change-mode',          // set a new application user mode
         'next'
     ],
 
@@ -40,6 +42,12 @@ var store = module.exports = Fluxo.createStore(true, {
     onSlideCache(slide) {
         this.setState({
             cached: this.state.cached + 1
+        });
+    },
+
+    onChangeMode(mode) {
+        this.setState({
+            mode: mode
         });
     },
 
@@ -73,6 +81,6 @@ function cacheImage(src, done, timeout) {
     };
 
     // fake delay [0.5-2.5]s
-    setTimeout(function() {img.src = src;}, (Math.floor(Math.random()*25)+5)*100);
-    // img.src = src;
+    // setTimeout(function() {img.src = src;}, (Math.floor(Math.random()*25)+5)*100);
+    img.src = src;
 }

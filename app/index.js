@@ -7,6 +7,22 @@
 var React = require('react');
 var App = require('app');
 var store = require('app/store');
+var router = require('jqb-router');
+
+router.init({
+    '/': function() {
+        router.navigate('show');
+    },
+    '/show': function() {
+        store.trigger('change-mode', 'show');
+    },
+    '/attend': function() {
+        store.trigger('change-mode', 'attendee');
+    },
+    '/remote': function() {
+        store.trigger('change-mode', 'remote');
+    }
+});
 
 // fake async slides data loading
 setTimeout(function() {
@@ -34,5 +50,8 @@ setTimeout(function() {
 module.exports = {
     test: function() {
         console.log('thisi is the public API: "test()"');
+    },
+    setMode: function(mode) {
+        router.navigate(mode);
     }
 };

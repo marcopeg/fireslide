@@ -17,7 +17,8 @@ module.exports = React.createClass({
     render() {
         
         var style = {
-            backgroundImage: 'url(' + this.props.src + ')'
+            backgroundImage: 'url(' + this.props.src + ')',
+            cursor: this.props.onClick ? 'pointer' : 'auto'     // iOS bug!
         };
 
         // sometimes good old plain Javascript is way more readable than JSX!

@@ -1,24 +1,14 @@
 /**
- * FireSlide
- * deck of slides
+ * FireSlide - Remote
  *
- * the responsibility here is to show a single slide
- * given the list of slides and the index of the current one.
- *
- * it can be as a simple component as it is coded in this step, 
- * but it may evolve into a more sophisticated piece of UI which
- * is capable to handle transitions between slides.
- *
- * the important concept is that the external API (the props)
- * are not going to change even if the internal behaviour does.
  */
 
 var React = require('react');
-var Slide = require('./slide');
+var Slide = require('elements/slide');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
-var store = require('./store');
+var store = require('app/store');
 
 module.exports = React.createClass({
     

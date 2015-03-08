@@ -3,7 +3,7 @@
  */
 
 var React = require('react');
-var ProgressBar = require('./progress-bar');
+var ProgressBar = require('elements/progress-bar');
 
 module.exports = React.createClass({
     propTypes: {
