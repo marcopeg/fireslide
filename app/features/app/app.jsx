@@ -25,10 +25,6 @@ module.exports = React.createClass({
         var isPreloading = dataIsReady && this.state.cached < this.state.slides.length;
         var isShowtime = dataIsReady && !isPreloading;
 
-        // split UI in many empty pieces that can be conditionally populated
-        var preload = null;
-        var mainUi = null;
-
         // are we preloading?
         if (isPreloading) {
             return (

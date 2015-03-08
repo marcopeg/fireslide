@@ -9,6 +9,7 @@ var App = require('app');
 var store = require('app/store');
 var router = require('jqb-router');
 
+// router actions communicate to the app store
 router.init({
     '/': function() {
         router.navigate('show');

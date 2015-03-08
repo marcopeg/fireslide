@@ -10,7 +10,7 @@ var store = module.exports = Fluxo.createStore(true, {
 
     // initial data schema
     initialState: {
-        mode: 'show',
+        mode: 'show',           // show | remote | attendee
         slides: [],
         cached: 0,
         current: 0

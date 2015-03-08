@@ -21,9 +21,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        return React.createElement(Slide, {
-            src: this.props.slides[this.props.current]
-        });
+        return <Slide src={this.props.slides[this.props.current]} />;
     }
 
 });
