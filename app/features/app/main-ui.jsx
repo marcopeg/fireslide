@@ -28,6 +28,7 @@ module.exports = React.createClass({
                         tips={this.props.tips} 
                         current={this.props.current} 
                         useTouch={this.props.useTouch}
+                        tipHeight={this.props.tipHeight}
                         />
                 );
 

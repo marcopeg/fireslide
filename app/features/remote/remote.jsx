@@ -25,7 +25,8 @@ module.exports = React.createClass({
     getDefaultProps() {
         return {
             slides: [],
-            current: 0
+            current: 0,
+            tipHeight: 25
         };
     },
     
@@ -67,7 +68,7 @@ module.exports = React.createClass({
 
         if (this.props.tips[this.props.current]) {
             tipText = this.props.tips[this.props.current];
-            tipHeight = 25;
+            tipHeight = this.props.tipHeight;
             slideHeight -= tipHeight;
         }
 

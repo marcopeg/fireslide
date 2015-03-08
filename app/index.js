@@ -58,5 +58,8 @@ module.exports = {
     },
     setTransition(transition) {
         store.trigger('set-transition', transition);
+    },
+    setTipHeight(val) {
+        store.trigger('set-tip-height', val);
     }
 };
