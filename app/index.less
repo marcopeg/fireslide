@@ -19,8 +19,35 @@
     width: 100%;
     height: 100%;
 }
+
 .fullBackground() {
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.fade-enter {
+    .transition(opacity .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .opacity(0);
+}
+
+.fade-enter-active {
+    .opacity(1);
+}
+
+.fade-leave {
+    .transition(opacity .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .opacity(1);
+}
+
+.fade-leave-active {
+    .opacity(0);
+}
+
+.loading {
+    .fullScreen();
+    background-color: @dark;
+    background-image: url(assets/gears.gif);
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -33,17 +60,11 @@ html, body {
 }
 
 #curtain {
-    .fullScreen();
-    .opacity(1);
-    .transition(opacity .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
-    
-    background-color: @dark;
-    background-image: url(assets/gears.gif);
-    background-repeat: no-repeat;
-    background-position: center center;
+    .loading;
+    .fade-leave;
 
     &.active {
-        .opacity(0);
+        .fade-leave-active;
     }
 }
 

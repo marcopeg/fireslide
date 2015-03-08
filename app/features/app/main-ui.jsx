@@ -14,6 +14,7 @@ module.exports = React.createClass({
             case 'show':
                 return (
                     <Show 
+                        syncing={this.props.syncing}
                         slides={this.props.slides} 
                         current={this.props.current} 
                         />

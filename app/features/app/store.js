@@ -5,6 +5,7 @@
  */
 
 var Fluxo = require('fluxo');
+var firebaseSync = require('./firebase-sync');
 
 var store = module.exports = Fluxo.createStore(true, {
 
@@ -13,7 +14,8 @@ var store = module.exports = Fluxo.createStore(true, {
         mode: 'show',           // show | remote | attendee
         slides: [],
         cached: 0,
-        current: 0
+        current: 0,
+        syncing: false          // turn true after the first sync-value from firebase
     },
 
     // actions manifesto
@@ -21,7 +23,13 @@ var store = module.exports = Fluxo.createStore(true, {
         'new-slides',           // slides data file is loaded from the server
         'slide-cache',          // a slingle slide has been cached
         'change-mode',          // set a new application user mode
+        'sync-status',          // updates the "syncing" state of the app
+        'set-slide',            // set current slide index
         'next'
+    ],
+
+    mixins: [
+        firebaseSync
     ],
 
     onNewSlides(slides) {
@@ -48,6 +56,18 @@ var store = module.exports = Fluxo.createStore(true, {
     onChangeMode(mode) {
         this.setState({
             mode: mode
+        });
+    },
+
+    onSyncStatus(status) {
+        this.setState({
+            syncing: status
+        });
+    },
+
+    onSetSlide(index) {
+        this.setState({
+            current: index
         });
     },
 

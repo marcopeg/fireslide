@@ -40,8 +40,9 @@ module.exports = React.createClass({
             return (
                 <MainUi 
                     mode={this.state.mode}
+                    syncing={this.state.syncing}
                     slides={this.state.slides} 
-                    current={this.state.current} 
+                    current={this.state.current}
                     />
             );
         }
