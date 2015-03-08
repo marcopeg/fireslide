@@ -14,14 +14,16 @@ module.exports = React.createClass({
     propTypes: {
         slides: React.PropTypes.array.isRequired,
         current: React.PropTypes.number.isRequired,
-        syncing: React.PropTypes.bool.isRequired
+        syncing: React.PropTypes.bool.isRequired,
+        transition: React.PropTypes.oneOf([null, 'fade', 'h-slide', 'v-slide'])
     },
     
     getDefaultProps() {
         return {
             slides: [],
             current: 0,
-            syncing: false
+            syncing: false,
+            transition: 'fade'
         };
     },
 
@@ -31,11 +33,10 @@ module.exports = React.createClass({
         var src = this.props.slides[this.props.current];
 
         if (this.props.syncing) {
-            slide = (
-                <ReactCSSTransitionGroup transitionName="fade">
-                    <Slide key={src} src={src} />
-                </ReactCSSTransitionGroup>
-            );
+            slide = <Slide key={src} src={src} />;
+            if (this.props.transition) {
+                slide = <ReactCSSTransitionGroup transitionName={this.props.transition} children={slide} />;
+            }
         }
 
         return (

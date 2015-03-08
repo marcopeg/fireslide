@@ -15,7 +15,8 @@ var store = module.exports = Fluxo.createStore(true, {
         slides: [],
         cached: 0,
         current: 0,
-        syncing: false          // turn true after the first sync-value from firebase
+        syncing: false,         // turn true after the first sync-value from firebase
+        transition: null        // visual transition for the slideshow
     },
 
     // actions manifesto
@@ -25,7 +26,8 @@ var store = module.exports = Fluxo.createStore(true, {
         'change-mode',          // set a new application user mode
         'sync-status',          // updates the "syncing" state of the app
         'set-slide',            // set current slide index
-        'next'
+        'set-transition',
+        'next',
     ],
 
     mixins: [
@@ -62,6 +64,12 @@ var store = module.exports = Fluxo.createStore(true, {
     onSyncStatus(status) {
         this.setState({
             syncing: status
+        });
+    },
+
+    onSetTransition(transition) {
+        this.setState({
+            transition: transition
         });
     },
 

@@ -28,7 +28,8 @@ router.init({
 // fake async slides data loading
 setTimeout(function() {
     var presentationData = require('presentation-data');
-    store.trigger('new-slides', presentationData);
+    store.trigger('new-slides', presentationData.slides);
+    store.trigger('set-transition', presentationData.transition);
 });
 
 // render the main UI entry point
@@ -49,10 +50,10 @@ setTimeout(function() {
 // Public API
 // particularly useful during development
 module.exports = {
-    test: function() {
-        console.log('thisi is the public API: "test()"');
-    },
-    setMode: function(mode) {
+    setMode(mode) {
         router.navigate(mode);
+    },
+    setTransition(transition) {
+        store.trigger('set-transition', transition);
     }
 };

@@ -17,6 +17,7 @@ module.exports = React.createClass({
                         syncing={this.props.syncing}
                         slides={this.props.slides} 
                         current={this.props.current} 
+                        transition={this.props.transition}
                         />
                 );
 
