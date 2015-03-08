@@ -26,6 +26,11 @@
     background-position: center center;
 }
 
+
+/**
+ * Fade Animation
+ */
+
 .fade-enter {
     .transition(opacity .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
     .opacity(0);
@@ -43,6 +48,53 @@
 .fade-leave-active {
     .opacity(0);
 }
+
+/**
+ * Horizontal Slide Animation
+ */
+
+.h-slide-enter {
+    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .translateX(100%);
+}
+
+.h-slide-enter-active {
+    .translateX(0);
+}
+
+.h-slide-leave {
+    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .translateX(0);
+}
+
+.h-slide-leave-active {
+    .translateX(-100%);
+}
+
+/**
+ * Vertical Slide Animation
+ */
+
+.v-slide-enter {
+    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .translateY(100%);
+}
+
+.v-slide-enter-active {
+    .translateY(0);
+}
+
+.v-slide-leave {
+    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .translateY(0);
+}
+
+.v-slide-leave-active {
+    .translateY(-100%);
+}
+
+
+
 
 .loading {
     .fullScreen();
