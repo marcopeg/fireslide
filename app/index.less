@@ -12,7 +12,7 @@
 
 .fullScreen() {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
 
     display: block;
@@ -183,5 +183,23 @@ html, body {
     
     &.prev {
         left: -20px;
+    }
+}
+
+.slide-tip {
+    .fullScreen;
+    .transition(height .2 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    top: 0;
+    bottom: auto;
+    background: lighten(@light, 10%);
+    color: @dark;
+
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .inner {
+        padding: 20px;
+        font-size: 16pt;
+        text-shadow: 0 1px #fff;
     }
 }

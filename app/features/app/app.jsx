@@ -42,6 +42,7 @@ module.exports = React.createClass({
                     mode={this.state.mode}
                     syncing={this.state.syncing}
                     slides={this.state.slides} 
+                    tips={this.state.tips} 
                     current={this.state.current}
                     transition={this.state.transition}
                     />

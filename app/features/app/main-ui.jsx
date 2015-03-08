@@ -25,6 +25,7 @@ module.exports = React.createClass({
                 return (
                     <Remote 
                         slides={this.props.slides} 
+                        tips={this.props.tips} 
                         current={this.props.current} 
                         />
                 );

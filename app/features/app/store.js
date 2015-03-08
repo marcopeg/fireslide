@@ -13,6 +13,7 @@ var store = module.exports = Fluxo.createStore(true, {
     initialState: {
         mode: 'show',           // show | remote | attendee
         slides: [],
+        tips: [],
         cached: 0,
         current: 0,
         syncing: false,         // turn true after the first sync-value from firebase
@@ -36,8 +37,19 @@ var store = module.exports = Fluxo.createStore(true, {
     ],
 
     onNewSlides(slides) {
+
+        // instead of dramatically change the app's structure
+        // I choose to manipulate the rich slides list and to
+        // separate urls from tips in two state properties
+        var tips = [];
+        slides = slides.map(function(slide) {
+            tips.push(slide.tip || '');
+            return slide.src;
+        });
+
         this.setState({
             slides: slides,
+            tips: tips,
             cached: 0,
             current: 0
         });
