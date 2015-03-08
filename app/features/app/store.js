@@ -19,7 +19,8 @@ var store = module.exports = Fluxo.createStore(true, {
         syncing: false,         // turn true after the first sync-value from firebase
         transition: null,       // visual transition for the slideshow
         useTouch: isTouchDevice(), // whether to use touch optimised components
-        tipHeight: 25
+        tipHeight: 25,
+        tipIsResizing: false
     },
 
     // actions manifesto
@@ -31,6 +32,7 @@ var store = module.exports = Fluxo.createStore(true, {
         'set-slide',            // set current slide index
         'set-transition',
         'set-tip-height',
+        'set-tip-resizing',
         'next',
         'prev'
     ],
@@ -92,6 +94,12 @@ var store = module.exports = Fluxo.createStore(true, {
     onSetTipHeight(val) {
         this.setState({
             tipHeight: val
+        });
+    },
+
+    onSetTipResizing(val) {
+        this.setState({
+            tipIsResizing: !!val
         });
     },
 

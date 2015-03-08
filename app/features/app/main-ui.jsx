@@ -29,6 +29,7 @@ module.exports = React.createClass({
                         current={this.props.current} 
                         useTouch={this.props.useTouch}
                         tipHeight={this.props.tipHeight}
+                        tipIsResizing={this.props.tipIsResizing}
                         />
                 );
 
