@@ -38,7 +38,8 @@ var store = module.exports = Fluxo.createStore(true, {
     ],
 
     mixins: [
-        firebaseSync
+        // firebaseSync()
+        Fluxo.mockMixin(require('./specs/fixtures/show.loading.fixture'))
     ],
 
     onNewSlides(slides) {
@@ -55,8 +56,7 @@ var store = module.exports = Fluxo.createStore(true, {
         this.setState({
             slides: slides,
             tips: tips,
-            cached: 0,
-            current: 0
+            cached: 0
         });
 
         // trigger slide caching
