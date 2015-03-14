@@ -3,6 +3,8 @@
  *
  */
 
+var router = require('jqb-router');
+
 var React = require('react');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -26,6 +28,22 @@ module.exports = React.createClass({
             syncing: false,
             transition: 'fade'
         };
+    },
+
+    componentDidMount() {
+        document.body.addEventListener('keypress', this._onKeyPress);
+    },
+
+    componentWillUnmount() {
+        document.body.removeEventListener('keypress', this._onKeyPress);
+    },
+
+    _onKeyPress(e) {
+        switch (e.which) {
+            case 112:
+            case 32:
+                return router.navigate('/show');
+        }
     },
 
     render() {
