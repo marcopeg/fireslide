@@ -10,12 +10,14 @@ module.exports = React.createClass({
 
     propTypes: {
         onAction: React.PropTypes.func,
+        onActionStart: React.PropTypes.func,
         activeClass: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
             onAction: null,
+            onActionStart: null,
             className: null,
             activeClass: ' active',
             shouldUseTouch: isTouchDevice()
@@ -34,6 +36,8 @@ module.exports = React.createClass({
         this.setState({
             isActive: true
         });
+
+        this.props.onActionStart && this.props.onActionStart();
     },
 
     _end(e) {

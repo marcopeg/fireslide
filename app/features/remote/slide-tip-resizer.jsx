@@ -32,8 +32,7 @@ module.exports = React.createClass({
 
         var style = {
             top: 'calc(' + this.props.position + '% + ' + this.props.offset + 'px)'
-        };
-        console.log(this.props);
+        };  
 
         if (this.props.useTouch) {
             return <div className="slide-tip-resizer" style={style} onTouchStart={this.props.onStart} />;

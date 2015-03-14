@@ -50,6 +50,7 @@ module.exports = React.createClass({
                     voteGood={this.state.voteGood}
                     voteBored={this.state.voteBored}
                     votePanic={this.state.votePanic}
+                    raisedHands={this.state.raisedHands}
                     />
             );
         }

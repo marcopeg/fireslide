@@ -10,6 +10,7 @@ var SlideButton = require('./slide-button');
 var SlideTip = require('./slide-tip');
 var SlideTipResizer = require('./slide-tip-resizer');
 var InfoBar = require('./info-bar');
+var Hands = require('./hands');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
@@ -73,6 +74,7 @@ module.exports = React.createClass({
         var currentSrc = this.props.slides[this.props.current];
         var prev = null;
         var next = null;
+        var hands = null;
 
         var tipText = null;
         var tipHeight = 0;
@@ -119,6 +121,10 @@ module.exports = React.createClass({
             );
         }
 
+        if (this.props.raisedHands) {
+            hands = <Hands key="raised-hands" children={this.props.raisedHands} />;
+        }
+
         var remote = (
             <ReactCSSTransitionGroup transitionName="fade">
                 <Slide 
@@ -141,6 +147,7 @@ module.exports = React.createClass({
                     voteBored={this.props.voteBored}
                     votePanic={this.props.votePanic}
                     />
+                {hands}
                 {tipResizer}
                 {prev}
                 {next}

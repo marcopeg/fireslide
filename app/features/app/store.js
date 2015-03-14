@@ -24,7 +24,9 @@ var store = module.exports = Fluxo.createStore(true, {
         feedbackInterval: 30000,    // how long a live feedback lies visible on the remote
         voteGood: 0,
         voteBored: 0,
-        votePanic: 0
+        votePanic: 0,
+        handIsUp: false,
+        raisedHands: 0
     },
 
     // actions manifesto
@@ -52,6 +54,12 @@ var store = module.exports = Fluxo.createStore(true, {
                 }
                 this.store.setState(prop, 0);
             }
+        },{
+            name: 'hand',
+            action: firebaseService.raiseHand
+        },{
+            name: 'reset-raised-hands',
+            action: firebaseService.resetRaisedHands
         }
     ],
 
@@ -125,6 +133,12 @@ var store = module.exports = Fluxo.createStore(true, {
     onSetSlide(index) {
         this.setState({
             current: index
+        });
+    },
+
+    onHand(val) {
+        this.setState({
+            handIsUp: val
         });
     },
 

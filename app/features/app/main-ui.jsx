@@ -34,6 +34,7 @@ module.exports = React.createClass({
                         voteGood={this.props.voteGood}
                         voteBored={this.props.voteBored}
                         votePanic={this.props.votePanic}
+                        raisedHands={this.props.raisedHands}
                         />
                 );
 

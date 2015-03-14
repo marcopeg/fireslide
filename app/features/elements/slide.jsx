@@ -13,6 +13,7 @@ module.exports = React.createClass({
     // use it extensively to improve implicit props documentation!
     propTypes: {
         onClick: React.PropTypes.func,
+        onClickStart: React.PropTypes.func,
         height: React.PropTypes.number,
         offset: React.PropTypes.number,
         isAnimated: React.PropTypes.bool
@@ -37,7 +38,14 @@ module.exports = React.createClass({
             height: 'calc(' + this.props.height + '% - ' + this.props.offset +  'px)'
         };
 
-        return <TouchClick className={className} style={style} onAction={this.props.onClick} />;
+        return (
+            <TouchClick 
+                className={className} 
+                style={style} 
+                onActionStart={this.props.onClickStart} 
+                onAction={this.props.onClick} 
+                />
+        );
 
     }
 });

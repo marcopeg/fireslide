@@ -4,10 +4,12 @@
  */
 
 var router = require('jqb-router');
+var store = require('app/store');
 
 var React = require('react');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+var TouchClick = require('elements/touch-click');
 var Slide = require('elements/slide');
 var Loading = require('elements/loading');
 var Vote = require('./vote');
@@ -46,8 +48,17 @@ module.exports = React.createClass({
         }
     },
 
+    _raiseHand() {
+        store.trigger('hand', true);
+    },
+
+    _lowerHand() {
+        store.trigger('hand', false);
+    },
+
     render() {
         var slide = null;
+        var hand = null;
         var src = this.props.slides[this.props.current];
 
         if (this.props.syncing) {
@@ -57,9 +68,16 @@ module.exports = React.createClass({
             }
         }
 
+        if (store.getState('handIsUp')) {
+            hand = <span key="hadsup" className="raise-hand" />;
+        }
+
         return (
             <div>
-                {slide}
+                <TouchClick onActionStart={this._raiseHand} onAction={this._lowerHand} >
+                    {slide}
+                    {hand} 
+                </TouchClick>
                 <div className="vote-panel">
                     <Vote value="good" />
                     <Vote value="bored" />
