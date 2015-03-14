@@ -27,6 +27,19 @@ module.exports = React.createClass({
         };
     },
 
+    _fullScreen() {
+        var slideshow = this.refs['slideshow'].getDOMNode();
+        if (slideshow.requestFullscreen) {
+            slideshow.requestFullscreen();
+        } else if (slideshow.msRequestFullscreen) {
+            slideshow.msRequestFullscreen();
+        } else if (slideshow.mozRequestFullScreen) {
+            slideshow.mozRequestFullScreen();
+        } else if (slideshow.webkitRequestFullscreen) {
+            slideshow.webkitRequestFullscreen();
+        }
+    },
+
     render() {
 
         var slide = null;
@@ -40,7 +53,7 @@ module.exports = React.createClass({
         }
 
         return (
-            <div>
+            <div ref="slideshow" onClick={this._fullScreen}>
                 {slide}
                 <Loading visible={!this.props.syncing} />
             </div>
