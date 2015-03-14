@@ -19,7 +19,6 @@ var store = require('./store');
 module.exports = React.createClass({
     mixins: [store.mixin()],
     render() {
-
         // compute all the logical informations that we need from the state
         var dataIsReady = this.state.slides.length > 0;
         var isPreloading = dataIsReady && this.state.cached < this.state.slides.length;
@@ -48,6 +47,9 @@ module.exports = React.createClass({
                     useTouch={this.state.useTouch}
                     tipHeight={this.state.tipHeight}
                     tipIsResizing={this.state.tipIsResizing}
+                    voteGood={this.state.voteGood}
+                    voteBored={this.state.voteBored}
+                    votePanic={this.state.votePanic}
                     />
             );
         }

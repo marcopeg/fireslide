@@ -6,9 +6,16 @@
 var React = require('react');
 
 module.exports = React.createClass({
+    getDefaultProps() {
+        return {
+            height: 0,
+            offset: 0
+        };
+    },
     render() {
         var className = 'slide-tip';
         var style = {
+            top: this.props.offset + 'px',
             height: this.props.height + '%'
         };
 

@@ -7,6 +7,7 @@
 var React = require('react');
 var Show = require('show');
 var Remote = require('remote');
+var Attendee = require('attendee');
 
 module.exports = React.createClass({
     render() {
@@ -30,12 +31,20 @@ module.exports = React.createClass({
                         useTouch={this.props.useTouch}
                         tipHeight={this.props.tipHeight}
                         tipIsResizing={this.props.tipIsResizing}
+                        voteGood={this.props.voteGood}
+                        voteBored={this.props.voteBored}
+                        votePanic={this.props.votePanic}
                         />
                 );
 
             case 'attendee':
                 return (
-                    <div>[attendee module needs yet to build]</div>
+                    <Attendee 
+                        syncing={this.props.syncing}
+                        slides={this.props.slides} 
+                        current={this.props.current} 
+                        transition={this.props.transition}
+                        />
                 );
         }
 

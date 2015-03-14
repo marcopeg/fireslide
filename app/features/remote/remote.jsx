@@ -9,6 +9,7 @@ var Slide = require('elements/slide');
 var SlideButton = require('./slide-button');
 var SlideTip = require('./slide-tip');
 var SlideTipResizer = require('./slide-tip-resizer');
+var InfoBar = require('./info-bar');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
@@ -27,6 +28,7 @@ module.exports = React.createClass({
         return {
             slides: [],
             current: 0,
+            infoBarHeight: 50,
             tipHeight: 25,
             tipIsResizing: false
         };
@@ -59,7 +61,10 @@ module.exports = React.createClass({
             pos = e.nativeEvent.clientY;
         }
 
-        height = pos * 100 / window.innerHeight;
+        // still doesn't work perfectly!
+        pos += this.props.infoBarHeight;
+
+        height = (pos - this.props.infoBarHeight) * 100 / window.innerHeight;
         store.trigger('set-tip-height', height);
     },
 
@@ -74,13 +79,17 @@ module.exports = React.createClass({
         var tipResizer = null;
         var slideHeight = 100;
 
+        var infoBarHeight = this.props.infoBarHeight;
+        if (this.props.voteGood + this.props.voteBored + this.props.votePanic === 0) {
+            infoBarHeight = 0;
+        }
+
         if (this.props.current < this.props.slides.length - 1) {
             next = (
                 <SlideButton 
                     key="cmd-next"
                     src={this.props.slides[this.props.current+1]}  
-                    action="next" 
-                    useTouch={this.props.useTouch}
+                    action="next"
                     />
                 );
         }
@@ -91,7 +100,6 @@ module.exports = React.createClass({
                     key="cmd-prev"
                     src={this.props.slides[this.props.current-1]}  
                     action="prev" 
-                    useTouch={this.props.useTouch}
                     />
             );
         }
@@ -103,7 +111,8 @@ module.exports = React.createClass({
 
             tipResizer = (
                 <SlideTipResizer 
-                    height={tipHeight} 
+                    position={tipHeight} 
+                    offset={infoBarHeight}
                     useTouch={this.props.useTouch}
                     onStart={this._onResizeStart}
                     />
@@ -117,12 +126,20 @@ module.exports = React.createClass({
                     src={currentSrc} 
                     onClick={this._onClick} 
                     height={slideHeight} 
-                    useTouch={this.props.useTouch}
+                    offset={infoBarHeight}
+                    isAnimated={!this.props.tipIsResizing}
                     />
                 <SlideTip 
                     text={tipText} 
-                    height={tipHeight} 
+                    height={tipHeight}
+                    offset={infoBarHeight}
                     isResizing={this.props.tipIsResizing}
+                    />
+                <InfoBar 
+                    height={infoBarHeight} 
+                    voteGood={this.props.voteGood}
+                    voteBored={this.props.voteBored}
+                    votePanic={this.props.votePanic}
                     />
                 {tipResizer}
                 {prev}

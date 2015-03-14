@@ -1,12 +1,14 @@
 
 var Firebase = require('firebase');
 
-var prod = {
+var dbUrl = 'https://fireslide.firebaseio.com';
+
+exports.syncMixin = {
     init: function() {
         console.log('live');
         var store = this.store;
 
-        var db = new Firebase('https://fireslide.firebaseio.com');
+        var db = new Firebase(dbUrl);
         var currentSlide = db.child('currentSlide');
         var firstVal = false;
         
@@ -33,46 +35,32 @@ var prod = {
             }
         });
 
+        // retreive live feedback and keep it update within the feedback interval
+        var timeout = store.getState('feedbackInterval');
+        var votes = db.child('votes').orderByChild('time').startAt(Date.now() - timeout);
+        votes.on('child_added', function(snap) {
+            var key = getVoteProp(snap.val().vote);
+            store.setState(key, store.getState(key) + 1);
+            setTimeout(function() {
+                var val = store.getState(key) - 1;
+                if (val < 0) {
+                    val = 0;
+                }
+                store.setState(key, val);
+            }, timeout);    
+        });
+
     }
 };
 
-/**
- * Fake Mixin
- * it allows to set a particular remote data configuration
- */
-var dev = function(settings) {
-    
-    switch (typeof settings) {
-        case 'number':
-            settings = {slide:settings};
-            break;
-        case 'boolean':
-            settings = {status:settings};
-            break;
-    }
-    
-    if (true === settings || 'object' !== typeof settings) {
-        settings = {};
-    }
-
-    settings.slide = settings.slide || 0;
-
-    if ([undefined, null].indexOf(settings.status) !== -1) {
-        settings.status = true;
-    }
-
-    return {
-        init: function() {
-            var store = this.store;
-            store.trigger('set-slide', settings.slide);
-            store.trigger('sync-status', !!settings.status);
-        }
-    };
-}; 
-
-module.exports = function(cfg) {
-    if (cfg !== undefined) {
-        return dev(cfg);
-    }
-    return prod;
+exports.vote = function(vote) {
+    var votes = new Firebase(dbUrl + '/votes');
+    votes.push({
+        vote: vote,
+        time: Date.now()
+    });
 };
+
+function getVoteProp(vote) {
+    return 'vote' + vote.charAt(0).toUpperCase() + vote.slice(1);
+}

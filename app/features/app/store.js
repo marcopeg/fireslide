@@ -5,45 +5,64 @@
  */
 
 var Fluxo = require('fluxo');
-var firebaseSync = require('./firebase-sync');
+var firebaseService = require('./firebase-service');
 
 var store = module.exports = Fluxo.createStore(true, {
 
     // initial data schema
     initialState: {
-        mode: 'show',           // show | remote | attendee
+        mode: 'attendee',           // show | remote | attendee
         slides: [],
         tips: [],
         cached: 0,
         current: 0,
-        syncing: false,         // turn true after the first sync-value from firebase
-        transition: null,       // visual transition for the slideshow
-        useTouch: isTouchDevice(), // whether to use touch optimised components
+        syncing: false,             // turn true after the first sync-value from firebase
+        transition: null,           // visual transition for the slideshow
+        useTouch: isTouchDevice(),  // whether to use touch optimised components
         tipHeight: 25,
-        tipIsResizing: false
+        tipIsResizing: false,
+        feedbackInterval: 30000,    // how long a live feedback lies visible on the remote
+        voteGood: 0,
+        voteBored: 0,
+        votePanic: 0
     },
 
     // actions manifesto
     actions: [
-        'new-slides',           // slides data file is loaded from the server
-        'slide-cache',          // a slingle slide has been cached
-        'change-mode',          // set a new application user mode
-        'sync-status',          // updates the "syncing" state of the app
-        'set-slide',            // set current slide index
+        'new-slides',               // slides data file is loaded from the server
+        'slide-cache',              // a slingle slide has been cached
+        'change-mode',              // set a new application user mode
+        'sync-status',              // updates the "syncing" state of the app
+        'set-slide',                // set current slide index
         'set-transition',
         'set-tip-height',
         'set-tip-resizing',
         'next',
-        'prev'
+        'prev',
+        {
+            name: 'vote',
+            action: firebaseService.vote
+        },{
+            name: 'reset-vote',
+            action: function(prop) {
+                switch (prop) {
+                    case 'good': prop = 'voteGood'; break;
+                    case 'bored': prop = 'voteBored'; break;
+                    case 'panic': prop = 'votePanic'; break;
+                }
+                this.store.setState(prop, 0);
+            }
+        }
     ],
 
     mixins: [
-        // firebaseSync()
-        Fluxo.mockMixin(require('./specs/fixtures/show.loading.fixture'))
+        firebaseService.syncMixin
+        //Fluxo.mockMixin(require('./specs/fixtures/attendee.first-slide.fixture'))
+        // Fluxo.mockMixin(require('./specs/fixtures/remote.feedback.fixture'))
     ],
 
     onNewSlides(slides) {
-
+        
         // instead of dramatically change the app's structure
         // I choose to manipulate the rich slides list and to
         // separate urls from tips in two state properties

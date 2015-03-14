@@ -9,6 +9,11 @@
 @dark: #111;
 @light: #cdcdcd;
 @lightShadow: #000;
+@green: rgb(84, 196, 52);
+@yellow: rgb(245, 175, 39);
+@red: rgb(231, 69, 68);
+@animationDuration: .3s;
+@animationEasing: cubic-bezier(0.550, 0.085, 0.680, 0.530);
 
 .fullScreen() {
     position: fixed;
@@ -32,7 +37,7 @@
  */
 
 .fade-enter {
-    .transition(opacity .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(opacity @animationDuration @animationEasing);
     .opacity(0);
 }
 
@@ -41,7 +46,7 @@
 }
 
 .fade-leave {
-    .transition(opacity .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(opacity @animationDuration @animationEasing);
     .opacity(1);
 }
 
@@ -54,7 +59,7 @@
  */
 
 .h-slide-enter {
-    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(transform @animationDuration @animationEasing);
     .translateX(100%);
 }
 
@@ -63,7 +68,7 @@
 }
 
 .h-slide-leave {
-    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(transform @animationDuration @animationEasing);
     .translateX(0);
 }
 
@@ -76,7 +81,7 @@
  */
 
 .v-slide-enter {
-    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(transform @animationDuration @animationEasing);
     .translateY(100%);
 }
 
@@ -85,7 +90,7 @@
 }
 
 .v-slide-leave {
-    .transition(transform .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(transform @animationDuration @animationEasing);
     .translateY(0);
 }
 
@@ -124,6 +129,9 @@ html, body {
     .fullScreen;
     .fullBackground;
     background-color: @dark;
+    &.animate {
+        .transition(all @animationDuration @animationEasing);
+    }
 }
 
 .slides-preloader {
@@ -145,7 +153,7 @@ html, body {
     background-color: #666;
     text-align: left;
     & > .progress {
-        .transition(width .3 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+        .transition(width @animationDuration @animationEasing);
         position: absolute;
         top:0;
         legt:0;
@@ -188,7 +196,7 @@ html, body {
 
 .slide-tip {
     .fullScreen;
-    .transition(height .2 cubic-bezier(0.550, 0.085, 0.680, 0.530));
+    .transition(all @animationDuration @animationEasing);
     top: 0;
     bottom: auto;
     background: lighten(@light, 10%);
@@ -220,4 +228,136 @@ html, body {
 
     background: rgba(0,0,0,0);
     cursor: ns-resize;
+}
+
+
+.voteText() {
+    font-size: 20pt;
+    color: #fff;
+    text-shadow: 0 2px #111;
+}
+
+.voteGood {
+    cursor: pointer;
+    background-color: @green;
+    &.active {
+        background-color: darken(@green, 20%);
+    }
+}
+
+.voteBored {
+    cursor: pointer;
+    background-color: @yellow;
+    &.active {
+        background-color: darken(@yellow, 20%);
+    }
+}
+
+.votePanic {
+    cursor: pointer;
+    background-color: @red;
+    &.active {
+        background-color: darken(@red, 20%);
+    }
+}
+
+.vote-panel {
+    .fullScreen();
+    .display(flex);
+    .flex-direction(row);
+    bottom: 0;
+    height: 80px; 
+    text-align: center;
+    background-color: #666;
+}
+
+.vote-good, .vote-bored, .vote-panic {
+    .flex(1);    
+    .display(flex);
+    .flex-direction(column);
+    .justify-content(center);
+    .voteText();
+
+    border-right: 1px solid @dark;
+    &:last-child {
+        border-right: none;        
+    }
+}
+
+.vote-good {
+    .voteGood();
+}
+
+.vote-bored {
+    .voteBored();
+}
+
+.vote-panic {
+    .votePanic();
+}
+
+@media only screen 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+    .vote-panel {
+        .flex-direction(column);
+        top: 0;
+        right: 0;
+        left: auto;
+        bottom: auto;
+        height: 100%;
+        width: 100px;
+    }
+    .vote-good, .vote-bored, .vote-panic {
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #555;
+        border-right: none;
+        &:first-child {
+            border-top: none;        
+        }
+        &:last-child {
+            border-bottom: none;        
+        }
+    }
+}
+
+
+.remote-info {
+    .transition(height @animationDuration @animationEasing);
+    .fullScreen();
+    top: 0;
+    bottom: auto;
+    height: 80px;
+    overflow: hidden;
+    border-bottom: 1px solid #fff;
+
+    .vote-info-good, .vote-info-bored, .vote-info-panic {
+        .transition(width @animationDuration @animationEasing);
+        position: relative;
+        display: inline-block;
+        width: 0px;
+        overflow: hidden;
+        
+        span {
+            position: absolute;
+            top: 50%;
+            display: block;
+            width: 100%;
+            text-align: center;
+            .voteText();
+            .translateY(-50%);
+        }
+    }
+
+    .vote-info-good {
+        .voteGood();
+    }
+
+    .vote-info-bored {
+        .voteBored();
+    }
+
+    .vote-info-panic {
+        .votePanic();
+    }
 }
