@@ -114,6 +114,7 @@ html, body {
     background: @dark; 
     color: @light;
     text-shadow: 0 1px @lightShadow;
+    font-family: Trebuchet MS, Helvetica, sans-serif;
 }
 
 #curtain {
@@ -167,18 +168,18 @@ html, body {
     .fullBackground;
 
     position: fixed;
-    bottom: -30px;
+    bottom: -2px;
 
     display: block;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
+    width: 45%;
+    height: 120px;
+    // border-radius: 100%;
 
     background-color: #000;
-    border-top: 1px solid #444;
-    border-bottom: 1px solid #222;
-    box-shadow: 0 0 30px #222;
+    border: 1px solid #aaa;
+    box-shadow: 0 0 30px #555;
     cursor: pointer; // remember iOS mobile??
+    z-index: 1;
 
     &:active, &.active {
         border-top: 1px solid #222;
@@ -186,11 +187,11 @@ html, body {
     }
 
     &.next {
-        right: -20px;
+        right: -2px;
     }
     
     &.prev {
-        left: -20px;
+        left: -2px;
     }
 }
 
@@ -387,25 +388,50 @@ and (orientation : landscape) {
     .justify-content(center);
     text-align: center;
 
-    &.active {
-        background: yellow;
-    }
 }
 
 .raised-hands {
+    @color: @yellow;
+    @colorActive: darken(@color, 10%);
     .raise-hand;
-    bottom: 6px;
+
     top: auto;
+    bottom: -10px;
     left: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 22pt;
-    color: blue;
-    background: yellow;
-    text-shadow: none;
-    font-style: italic;
-    border: none;
-    .translateX(-50%);
+    .translate(-50% 0);
+
+    box-shadow: 0 0 30px #000;
+    border-color: @color;
+    z-index: 2;
+    
+    i {
+        position: absolute;
+        top:-5px;
+        right:-5px;
+        display: block;
+        width: 30px;
+        height: 30px;
+
+        background: @color;
+        color: #000;
+        border-radius: 100%;
+        font-style: normal;
+        text-shadow: 0 1px #fff;
+        color: darken(@color, 35%);
+
+        .display(flex);
+        .flex-direction(column);
+        .justify-content(center);
+        text-align: center;
+    }
+
+    &.active {
+        border-color: @colorActive;
+        i {
+            background: @colorActive;
+            color: darken(@colorActive, 35%);
+        }
+    }
 }
 
 

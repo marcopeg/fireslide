@@ -67,6 +67,7 @@ var store = module.exports = Fluxo.createStore(true, {
         firebaseService.syncMixin
         // Fluxo.mockMixin(require('./specs/fixtures/attendee.first-slide.fixture'))
         // Fluxo.mockMixin(require('./specs/fixtures/remote.feedback.fixture'))
+        // Fluxo.mockMixin(require('./specs/fixtures/remote.hands-up.fixture'))
     ],
 
     onNewSlides(slides) {

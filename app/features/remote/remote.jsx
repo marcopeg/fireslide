@@ -122,7 +122,11 @@ module.exports = React.createClass({
         }
 
         if (this.props.raisedHands) {
-            hands = <Hands key="raised-hands" children={this.props.raisedHands} />;
+            hands = (
+                <Hands key="raised-hands">
+                    <i>{this.props.raisedHands}</i>
+                </Hands>
+            );
         }
 
         var remote = (
