@@ -31,8 +31,20 @@ module.exports = React.createClass({
         };
     },
 
+    _onClick() {
+        this.setState({
+            currentSlideIndex: this.state.currentSlideIndex + 1
+        });
+    },
+
     render() {
-        return <SlideDeck slides={slides} currentSlideIndex={this.state.currentSlideIndex} />;
+        return (
+            <SlideDeck 
+                slides={slides} 
+                currentSlideIndex={this.state.currentSlideIndex} 
+                onClick={this._onClick}
+                />
+        );
     }
 
 });

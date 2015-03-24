@@ -20,7 +20,8 @@ module.exports = React.createClass({
     
     propTypes: {
         slides: React.PropTypes.array.isRequired,
-        currentSlideIndex: React.PropTypes.number.isRequired
+        currentSlideIndex: React.PropTypes.number.isRequired,
+        onClick: React.PropTypes.func
     },
     
     getDefaultProps() {
@@ -31,7 +32,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        return <Slide src={this.props.slides[this.props.currentSlideIndex]} />;
+        return <Slide src={this.props.slides[this.props.currentSlideIndex]} onClick={this.props.onClick} />;
     }
 
 });
