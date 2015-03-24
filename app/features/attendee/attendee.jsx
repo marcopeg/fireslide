@@ -79,9 +79,9 @@ module.exports = React.createClass({
                     {hand} 
                 </TouchClick>
                 <div className="vote-panel">
-                    <Vote value="good" />
-                    <Vote value="bored" />
                     <Vote value="panic" />
+                    <Vote value="bored" />
+                    <Vote value="good" />
                 </div>
                 <Loading visible={!this.props.syncing} />
             </div>
