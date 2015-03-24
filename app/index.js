@@ -8,6 +8,24 @@ var React = require('react');
 var App = require('app');
 var store = require('app/store');
 
+
+/**
+ * Mock the Store
+ * useful during development
+ */
+// store.mock({
+//     state: {
+//         slides: [
+//             'assets/slides/slides.001.jpg',
+//             'assets/slides/slides.002.jpg',
+//             'assets/slides/slides.003.jpg'
+//         ],
+//         cached: 2
+//     },
+//     actions: true
+// });
+
+
 // fake async slides data loading
 setTimeout(function() {
     var presentationData = require('presentation-data');
@@ -36,3 +54,5 @@ module.exports = {
         console.log('thisi is the public API: "test()"');
     }
 };
+
+
