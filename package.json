@@ -39,6 +39,6 @@
     "lesshat": "^3.0.2"
   },
   "dependencies": {
-    "fluxo": "0.0.8"
+    "fluxo": "0.0.x"
   }
 }
