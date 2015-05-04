@@ -1,16 +1,32 @@
 var Firebase = require('firebase');
+var util = require('util');
+var EventEmitter = require('events').EventEmitter;
 
 var dbUrl = 'https://fireslide.firebaseio.com';
 var db = new Firebase(dbUrl);
 
-module.exports = {
-    requestSession: function(clientId) {
-        var streams = db.child('streams');
-        var streamRef = streams.push({
-            publish: false,
-            time: Date.now()
-        });
+function StreamingControlService() {
+    EventEmitter.call(this);
+    var streams = db.child('streams');
+    this._stream = streams.push({
+        active: false,
+        publish: false,
+        time: Date.now()
+    });
 
-        return streamRef;
-    }
+    this._stream.child('publish').on('value', function(snap) {
+        var publish = snap.val();
+        var eventName = publish ? 'sessionStarted' : 'sessionStopped';
+        this.emit(eventName);
+    }.bind(this));
+
+    this.ClientID = this._stream.key();
+}
+
+util.inherits(StreamingControlService, EventEmitter);
+
+StreamingControlService.prototype.requestSession = function() {
+    this._stream.child('active').set(true);
 };
+
+module.exports = StreamingControlService;
