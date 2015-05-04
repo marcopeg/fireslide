@@ -4,12 +4,13 @@ var dbUrl = 'https://fireslide.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 module.exports = {
-    requestSession: function () {
-        console.log('push stream');
+    requestSession: function(clientId) {
         var streams = db.child('streams');
-        streams.push({
+        var streamRef = streams.push({
             publish: false,
             time: Date.now()
         });
+
+        return streamRef;
     }
 };

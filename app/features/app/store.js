@@ -5,6 +5,7 @@
  */
 
 var Fluxo = require('fluxo');
+var Firebase = require('firebase');
 var firebaseService = require('./firebase-service');
 var streamingControlService = require('./services/streaming-control');
 var streamingService = require('./services/streaming');
@@ -64,7 +65,15 @@ var store = module.exports = Fluxo.createStore(true, {
             action: firebaseService.resetRaisedHands
         },{
             name: 'request-session',
-            action: streamingControlService.requestSession
+            action: function() {
+                var streamRef = streamingControlService.requestSession();
+                streamRef.child('publish').on('value', function(snap) {
+                    if (!snap.val()) {
+                        return;
+                    }
+                    streamingService.startPublisherSession();
+                });
+            }
         },{
             name: 'start-subscriber-session',
             action: streamingService.startSubscriberSession
