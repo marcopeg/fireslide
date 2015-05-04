@@ -50,7 +50,7 @@ module.exports = React.createClass({
 
     _raiseHand() {
         store.trigger('hand', true);
-        store.trigger('start-publisher-session', true);
+        store.trigger('request-session', true);
     },
 
     _lowerHand() {

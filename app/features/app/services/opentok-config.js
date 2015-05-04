@@ -1,0 +1,7 @@
+module.exports = {
+    apiKey: '45227762',
+    sessionId: '2_MX40NTIyNzc2Mn5-MTQzMDczMzIxMzIzOX5hRFBiNTdwbGRVNEtlejltVVpWaUp1TTZ-fg',
+    token: 'T1==cGFydG5lcl9pZD00NTIyNzc2MiZzaWc9NzZhZGUzNmJiMjVhMjI1Zjc1MGEwMzNkYWJlZWJmYmViODY4NjA4Yjpyb2xlPXB1Ymxpc2hlciZzZXNz' +
+        'aW9uX2lkPTJfTVg0ME5USXlOemMyTW41LU1UUXpNRGN6TXpJeE16SXpPWDVoUkZCaU5UZHdiR1J' +
+        'WTkV0bGVqbHRWVnBXYVVwMVRUWi1mZyZjcmVhdGVfdGltZT0xNDMwNzMzMjI0Jm5vbmNlPTAuNzIzMTU0ODM2NTEyNzc2MyZleHBpcmVfdGltZT0xNDMzMzIyODIzJmNvbm5lY3Rpb25fZGF0YT1k'
+};
