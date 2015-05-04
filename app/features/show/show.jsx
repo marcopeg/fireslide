@@ -4,7 +4,6 @@
  */
 
 var router = require('jqb-router');
-var store = require('app/store');
 
 var React = require('react');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -32,7 +31,6 @@ module.exports = React.createClass({
 
     componentDidMount() {
         document.body.addEventListener('keypress', this._onKeyPress);
-        store.trigger('start-subscriber-session', true);
     },
 
     componentWillUnmount() {

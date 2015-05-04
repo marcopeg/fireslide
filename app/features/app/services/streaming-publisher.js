@@ -5,7 +5,6 @@ var _session = OT.initSession(config.apiKey, config.sessionId);
 
 module.exports = {
     start: function() {
-        console.log('publishing start');
         _session.connect(config.token, function(error) {
             if (error) {
                 console.log(error.message);
@@ -16,7 +15,6 @@ module.exports = {
     },
 
     stop: function() {
-        console.log('publishing stop');
         _session.disconnect();
     },
 

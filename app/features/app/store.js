@@ -7,8 +7,9 @@
 var Fluxo = require('fluxo');
 var Firebase = require('firebase');
 var firebaseService = require('./firebase-service');
-var streamingControlService = require('./services/streaming-control');
-var streamingService = require('./services/streaming');
+
+var StreamingControlService = require('./services/streaming-control');
+var streamingControlService = new StreamingControlService();
 
 var store = module.exports = Fluxo.createStore(true, {
 
@@ -66,18 +67,36 @@ var store = module.exports = Fluxo.createStore(true, {
         },{
             name: 'request-session',
             action: function() {
-                var streamRef = streamingControlService.requestSession();
-                streamRef.child('publish').on('value', function(snap) {
-                    if (!snap.val()) {
-                        return;
-                    }
-                    streamingService.startPublisherSession();
-                });
+                streamingControlService.requestSession();
             }
         },{
-            name: 'start-subscriber-session',
-            action: streamingService.startSubscriberSession
-        }
+            name: 'init-services',
+            action: function(mode) {
+                if (this._streamingPublisherService) {
+                    streamingControlService.removeListener('sessionStarted', this._streamingPublisherService.start);
+                    streamingControlService.removeListener('sessionStopped', this._streamingPublisherService.stop);
+                    this._streamingPublisherService.dispose();
+                    this._streamingPublisherService = null;
+                }
+
+                if (this._streamingSubscriberService) {
+                    this._streamingSubscriberService.dispose();
+                    this._streamingSubscriberService = null;
+                }
+
+                switch(mode) {
+                    case 'attendee':
+                        this._streamingPublisherService = require('./services/streaming-publisher');
+                        streamingControlService.on('sessionStarted', this._streamingPublisherService.start);
+                        streamingControlService.on('sessionStopped', this._streamingPublisherService.stop);
+                    break;
+                    case 'show':
+                        this._streamingSubscriberService = require('./services/streaming-subscriber');
+                        this._streamingSubscriberService.start();
+                    break;
+                }
+            }
+        },
     ],
 
     mixins: [
@@ -86,6 +105,10 @@ var store = module.exports = Fluxo.createStore(true, {
         // Fluxo.mockMixin(require('./specs/fixtures/remote.feedback.fixture'))
         // Fluxo.mockMixin(require('./specs/fixtures/remote.hands-up.fixture'))
     ],
+
+    init() {
+        this.trigger('init-services', this.state.mode);
+    },
 
     onNewSlides(slides) {
 
@@ -119,6 +142,7 @@ var store = module.exports = Fluxo.createStore(true, {
     },
 
     onChangeMode(mode) {
+        this.trigger('init-services', mode);
         this.setState({
             mode: mode
         });
