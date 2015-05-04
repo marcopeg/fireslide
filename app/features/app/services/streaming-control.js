@@ -20,6 +20,10 @@ function StreamingControlService() {
         this.emit(eventName);
     }.bind(this));
 
+    this._stream.child('active').on('value', function(snap) {
+        this.emit('sessionActive', snap.val());
+    }.bind(this));
+
     this.ClientID = this._stream.key();
 }
 
@@ -27,6 +31,10 @@ util.inherits(StreamingControlService, EventEmitter);
 
 StreamingControlService.prototype.requestSession = function() {
     this._stream.child('active').set(true);
+};
+
+StreamingControlService.prototype.abortSession = function() {
+    this._stream.child('active').set(false);
 };
 
 module.exports = StreamingControlService;

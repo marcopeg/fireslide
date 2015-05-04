@@ -51,6 +51,7 @@ module.exports = React.createClass({
                     voteBored={this.state.voteBored}
                     votePanic={this.state.votePanic}
                     raisedHands={this.state.raisedHands}
+                    isStreaming={this.state.isStreaming}
                     />
             );
         }

@@ -9,7 +9,7 @@ module.exports = {
             if (error) {
                 console.log(error.message);
             } else {
-                _session.publish('publisherDiv', {width: 320, height: 240});
+                _session.publish('attendeeStreamingTarget', {width: 320, height: 240});
             }
         });
     },

@@ -30,7 +30,8 @@ var store = module.exports = Fluxo.createStore(true, {
         voteBored: 0,
         votePanic: 0,
         handIsUp: false,
-        raisedHands: 0
+        raisedHands: 0,
+        isStreaming: false
     },
 
     // actions manifesto
@@ -58,13 +59,28 @@ var store = module.exports = Fluxo.createStore(true, {
                 }
                 this.store.setState(prop, 0);
             }
-        },{
-            name: 'hand',
-            action: firebaseService.raiseHand
-        },{
-            name: 'reset-raised-hands',
-            action: firebaseService.resetRaisedHands
-        },{
+        },
+        {
+            name: 'toggle-hand',
+            action: function() {
+                var currentValue = this.store.getState('handIsUp');
+                this.store.setState('handIsUp', !currentValue);
+                if (currentValue) {
+                    streamingControlService.abortSession();
+                } else {
+                    streamingControlService.requestSession();
+                }
+            }
+        },
+        // {
+        //     name: 'hand',
+        //     action: firebaseService.raiseHand
+        // },
+        // {
+        //     name: 'reset-raised-hands',
+        //     action: firebaseService.resetRaisedHands
+        // },
+        {
             name: 'request-session',
             action: function() {
                 streamingControlService.requestSession();
@@ -108,6 +124,20 @@ var store = module.exports = Fluxo.createStore(true, {
 
     init() {
         this.trigger('init-services', this.state.mode);
+
+        streamingControlService.on('sessionActive', function(val) {
+            this.setState('handIsUp', val);
+        }.bind(this));
+
+        streamingControlService.on('sessionStarted', function(val) {
+            this.setState('isStreaming', true);
+        }.bind(this));
+
+        streamingControlService.on('sessionStopped', function(val) {
+            this.setState('isStreaming', false);
+        }.bind(this));
+
+
     },
 
     onNewSlides(slides) {

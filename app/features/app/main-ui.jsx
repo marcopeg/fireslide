@@ -45,6 +45,7 @@ module.exports = React.createClass({
                         slides={this.props.slides} 
                         current={this.props.current} 
                         transition={this.props.transition}
+                        isStreaming={this.props.isStreaming}
                         />
                 );
         }

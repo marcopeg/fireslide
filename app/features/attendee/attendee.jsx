@@ -49,15 +49,24 @@ module.exports = React.createClass({
     },
 
     _raiseHand() {
-        store.trigger('hand', true);
-        store.trigger('request-session', true);
+        // store.trigger('hand', true);
+        // store.trigger('request-session', true);
     },
 
-    _lowerHand() {
-        store.trigger('hand', false);
+    _toggleRaisedHand() {
+        store.trigger('toggle-hand');
     },
 
     render() {
+
+        if (this.props.isStreaming) {
+            return (
+                <div key="streamingUi">streaming!
+                    <div id="attendeeStreamingTarget"></div>
+                </div>
+            );
+        }
+
         var slide = null;
         var hand = null;
         var src = this.props.slides[this.props.current];
@@ -69,13 +78,16 @@ module.exports = React.createClass({
             }
         }
 
+        // raised hand placeholder
+        var handClass = 'raise-hand';
         if (store.getState('handIsUp')) {
-            hand = <span key="hadsup" className="raise-hand" />;
+            handClass += ' raise-hand-pending';
         }
+        hand = <span key="hadsup" className={handClass} />;
 
         return (
-            <div>
-                <TouchClick onActionStart={this._raiseHand} onAction={this._lowerHand} >
+            <div key="attendeeUi">
+                <TouchClick onAction={this._toggleRaisedHand} >
                     {slide}
                     {hand}
                 </TouchClick>
