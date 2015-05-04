@@ -15,14 +15,14 @@ var Loading = require('elements/loading');
 var Vote = require('./vote');
 
 module.exports = React.createClass({
-    
+
     propTypes: {
         slides: React.PropTypes.array.isRequired,
         current: React.PropTypes.number.isRequired,
         syncing: React.PropTypes.bool.isRequired,
         transition: React.PropTypes.oneOf([null, 'fade', 'h-slide', 'v-slide'])
     },
-    
+
     getDefaultProps() {
         return {
             slides: [],
@@ -50,6 +50,7 @@ module.exports = React.createClass({
 
     _raiseHand() {
         store.trigger('hand', true);
+        store.trigger('start-publisher-session', true);
     },
 
     _lowerHand() {
@@ -76,7 +77,7 @@ module.exports = React.createClass({
             <div>
                 <TouchClick onActionStart={this._raiseHand} onAction={this._lowerHand} >
                     {slide}
-                    {hand} 
+                    {hand}
                 </TouchClick>
                 <div className="vote-panel">
                     <Vote value="panic" />

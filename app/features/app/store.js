@@ -6,6 +6,7 @@
 
 var Fluxo = require('fluxo');
 var firebaseService = require('./firebase-service');
+var streamingService = require('./streaming-service');
 
 var store = module.exports = Fluxo.createStore(true, {
 
@@ -60,6 +61,12 @@ var store = module.exports = Fluxo.createStore(true, {
         },{
             name: 'reset-raised-hands',
             action: firebaseService.resetRaisedHands
+        },{
+            name: 'start-publisher-session',
+            action: streamingService.startPublisherSession
+        },{
+            name: 'start-subscriber-session',
+            action: streamingService.startSubscriberSession
         }
     ],
 
@@ -71,7 +78,7 @@ var store = module.exports = Fluxo.createStore(true, {
     ],
 
     onNewSlides(slides) {
-        
+
         // instead of dramatically change the app's structure
         // I choose to manipulate the rich slides list and to
         // separate urls from tips in two state properties
@@ -181,11 +188,10 @@ function cacheImage(src, done, timeout) {
 }
 
 function isTouchDevice() {
-    try {  
+    try {
         document.createEvent("TouchEvent");
         return true;
     } catch (e) {
         return false;
     }
 }
-

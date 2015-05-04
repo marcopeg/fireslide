@@ -4,6 +4,7 @@
  */
 
 var router = require('jqb-router');
+var store = require('app/store');
 
 var React = require('react');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -12,14 +13,14 @@ var Slide = require('elements/slide');
 var Loading = require('elements/loading');
 
 module.exports = React.createClass({
-    
+
     propTypes: {
         slides: React.PropTypes.array.isRequired,
         current: React.PropTypes.number.isRequired,
         syncing: React.PropTypes.bool.isRequired,
         transition: React.PropTypes.oneOf([null, 'fade', 'h-slide', 'v-slide'])
     },
-    
+
     getDefaultProps() {
         return {
             slides: [],
@@ -31,6 +32,7 @@ module.exports = React.createClass({
 
     componentDidMount() {
         document.body.addEventListener('keypress', this._onKeyPress);
+        store.trigger('start-subscriber-session', true);
     },
 
     componentWillUnmount() {
@@ -75,9 +77,11 @@ module.exports = React.createClass({
 
         return (
             <div ref="slideshow" onClick={this._fullScreen}>
+                <div id="subscribedDiv"></div>
                 {slide}
                 <Loading visible={!this.props.syncing} />
             </div>
+
         );
     }
 
