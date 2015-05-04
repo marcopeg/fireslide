@@ -29,7 +29,5 @@ module.exports = {
                 _session.subscribe(event.stream, 'subscriberDiv', {insertMode: 'append'});
             }
         });
-
-
     }
 };

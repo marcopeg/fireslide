@@ -6,7 +6,8 @@
 
 var Fluxo = require('fluxo');
 var firebaseService = require('./firebase-service');
-var streamingService = require('./streaming-service');
+var streamingControlService = require('./services/streaming-control');
+var streamingService = require('./services/streaming');
 
 var store = module.exports = Fluxo.createStore(true, {
 
@@ -62,8 +63,8 @@ var store = module.exports = Fluxo.createStore(true, {
             name: 'reset-raised-hands',
             action: firebaseService.resetRaisedHands
         },{
-            name: 'start-publisher-session',
-            action: streamingService.startPublisherSession
+            name: 'request-session',
+            action: streamingControlService.requestSession
         },{
             name: 'start-subscriber-session',
             action: streamingService.startSubscriberSession
