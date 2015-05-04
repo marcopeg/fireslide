@@ -1,4 +1,4 @@
-var OT = require('../../assets/opentok-2.5.1/opentok.min');
+var OT = require('opentok');
 
 var apiKey = '45227762';
 var sessionId = '2_MX40NTIyNzc2Mn5-MTQzMDczMzIxMzIzOX5hRFBiNTdwbGRVNEtlejltVVpWaUp1TTZ-fg';
