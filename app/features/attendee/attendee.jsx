@@ -13,6 +13,7 @@ var TouchClick = require('elements/touch-click');
 var Slide = require('elements/slide');
 var Loading = require('elements/loading');
 var Vote = require('./vote');
+var Poll = require('./poll');
 
 module.exports = React.createClass({
     
@@ -59,6 +60,7 @@ module.exports = React.createClass({
     render() {
         var slide = null;
         var hand = null;
+        var poll = null;
         var src = this.props.slides[this.props.current];
 
         if (this.props.syncing) {
@@ -70,6 +72,10 @@ module.exports = React.createClass({
 
         if (store.getState('handIsUp')) {
             hand = <span key="hadsup" className="raise-hand" />;
+        }
+        
+        if(store.getState('showPoll') && this.props.currentPoll) {
+            poll = <Poll data={this.props.currentPoll} />;
         }
 
         return (
@@ -83,6 +89,7 @@ module.exports = React.createClass({
                     <Vote value="bored" />
                     <Vote value="good" />
                 </div>
+                {poll}
                 <Loading visible={!this.props.syncing} />
             </div>
         );

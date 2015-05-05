@@ -17,6 +17,7 @@ module.exports = React.createClass({
                     <Show 
                         syncing={this.props.syncing}
                         slides={this.props.slides} 
+                        currentPoll={this.props.currentPoll}
                         current={this.props.current} 
                         transition={this.props.transition}
                         />
@@ -27,6 +28,7 @@ module.exports = React.createClass({
                     <Remote 
                         slides={this.props.slides} 
                         tips={this.props.tips} 
+                        polls={this.props.polls}
                         current={this.props.current} 
                         useTouch={this.props.useTouch}
                         tipHeight={this.props.tipHeight}
@@ -43,6 +45,7 @@ module.exports = React.createClass({
                     <Attendee 
                         syncing={this.props.syncing}
                         slides={this.props.slides} 
+                        currentPoll={this.props.currentPoll}
                         current={this.props.current} 
                         transition={this.props.transition}
                         />

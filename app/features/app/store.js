@@ -14,6 +14,8 @@ var store = module.exports = Fluxo.createStore(true, {
         mode: 'attendee',           // show | remote | attendee
         slides: [],
         tips: [],
+        polls: [],
+        pollResult: null,
         cached: 0,
         current: 0,
         syncing: false,             // turn true after the first sync-value from firebase
@@ -26,6 +28,7 @@ var store = module.exports = Fluxo.createStore(true, {
         voteBored: 0,
         votePanic: 0,
         handIsUp: false,
+        showPoll: false,
         raisedHands: 0
     },
 
@@ -60,6 +63,15 @@ var store = module.exports = Fluxo.createStore(true, {
         },{
             name: 'reset-raised-hands',
             action: firebaseService.resetRaisedHands
+        },{
+            name: 'init-poll',
+            action: firebaseService.initPoll
+        },{
+            name: 'update-poll',
+            action: firebaseService.updatePoll
+        },{
+            name: 'reset-poll',
+            action: firebaseService.resetPoll
         }
     ],
 
@@ -75,15 +87,19 @@ var store = module.exports = Fluxo.createStore(true, {
         // instead of dramatically change the app's structure
         // I choose to manipulate the rich slides list and to
         // separate urls from tips in two state properties
+        console.log('onNewSlides', slides);
         var tips = [];
+        var polls = [];
         slides = slides.map(function(slide) {
             tips.push(slide.tip || '');
+            polls.push(slide.poll || '');
             return slide.src;
         });
 
         this.setState({
             slides: slides,
             tips: tips,
+            polls: polls,
             cached: 0
         });
 
@@ -150,6 +166,7 @@ var store = module.exports = Fluxo.createStore(true, {
             return;
         }
         this.trigger('set-slide', next);
+        this.trigger('reset-poll');
     },
 
     onPrev() {
@@ -159,6 +176,7 @@ var store = module.exports = Fluxo.createStore(true, {
             return;
         }
         this.trigger('set-slide', prev);
+        this.trigger('reset-poll');
     }
 
 });

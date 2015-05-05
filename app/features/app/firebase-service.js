@@ -1,7 +1,7 @@
 
 var Firebase = require('firebase');
 
-var dbUrl = 'https://fireslide.firebaseio.com';
+var dbUrl = 'https://fireslide-polls.firebaseio.com/'; //'https://fireslide.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 exports.syncMixin = {
@@ -55,7 +55,11 @@ exports.syncMixin = {
             store.setState('raisedHands', snap.val() || 0);
         });
 
-
+        var poll = db.child('poll');
+        poll.on('value', function(snap) {
+            store.setState('showPoll', !!snap.val() || false);
+            store.setState('currentPoll', snap.val() || null);
+        });
 
     }
 };
@@ -89,3 +93,33 @@ exports.resetRaisedHands = function() {
 function getVoteProp(vote) {
     return 'vote' + vote.charAt(0).toUpperCase() + vote.slice(1);
 }
+
+exports.initPoll = function(poll) {
+    var dbPoll = db.child('poll');
+    var answers = [];
+    poll.answers.map(function(answer, i){
+        answers[i] = {
+            answer: answer, 
+            votes: 0
+        };
+    });
+    dbPoll.set({
+        question: poll.question,
+        answers: answers,
+        total: 0
+    });
+};
+
+exports.updatePoll = function(answer) {
+    var dbPoll = db.child('poll');
+    dbPoll.child('answers').child(answer.id).child('votes').transaction(function(votes) {
+        return votes + 1;
+    });
+    dbPoll.child('total').transaction(function(total){
+        return total + 1;
+    });
+};
+
+exports.resetPoll = function() {
+    db.child('poll').remove();
+};

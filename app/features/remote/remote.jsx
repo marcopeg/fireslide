@@ -11,6 +11,7 @@ var SlideTip = require('./slide-tip');
 var SlideTipResizer = require('./slide-tip-resizer');
 var InfoBar = require('./info-bar');
 var Hands = require('./hands');
+var Poll = require('./poll');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
@@ -33,6 +34,10 @@ module.exports = React.createClass({
             tipHeight: 25,
             tipIsResizing: false
         };
+    },
+
+    componentWillMount () {
+        store.trigger('reset-poll');
     },
     
     _onClick() {
@@ -75,6 +80,7 @@ module.exports = React.createClass({
         var prev = null;
         var next = null;
         var hands = null;
+        var poll = null;
 
         var tipText = null;
         var tipHeight = 0;
@@ -129,6 +135,10 @@ module.exports = React.createClass({
             );
         }
 
+        if (this.props.polls[this.props.current]) {
+            poll = <Poll started={store.getState('showPoll')} data={this.props.polls[this.props.current]} />;
+        }
+
         var remote = (
             <ReactCSSTransitionGroup transitionName="fade">
                 <Slide 
@@ -154,6 +164,7 @@ module.exports = React.createClass({
                 {hands}
                 {tipResizer}
                 {prev}
+                {poll}
                 {next}
             </ReactCSSTransitionGroup>
         );
