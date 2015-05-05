@@ -1,7 +1,7 @@
 
 var Firebase = require('firebase');
 
-var dbUrl = 'https://fireslide.firebaseio.com';
+var dbUrl = 'https://babeltext.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 exports.syncMixin = {
@@ -55,7 +55,15 @@ exports.syncMixin = {
             store.setState('raisedHands', snap.val() || 0);
         });
 
-
+        // retrieve active streams
+        var streams = {};
+        db.child('streams').on('child_added', function(snap) {
+            snap.ref().on('value', function(snap) {
+                streams[snap.key()] = snap.val();
+                store.setState('streams', streams);
+                store.setState('quickAndDirtyhHackToTriggerUpdate', Date.now());
+            });
+        });
 
     }
 };
@@ -89,3 +97,14 @@ exports.resetRaisedHands = function() {
 function getVoteProp(vote) {
     return 'vote' + vote.charAt(0).toUpperCase() + vote.slice(1);
 }
+
+exports.enableStream = function(streamId) {
+    db.child('streams/' + streamId + '/publish').set(true);
+};
+
+exports.disableStream = function(streamId) {
+    db.child('streams/' + streamId).set({
+        active: false,
+        publish: false
+    });
+};

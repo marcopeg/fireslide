@@ -35,6 +35,7 @@ module.exports = React.createClass({
                         voteBored={this.props.voteBored}
                         votePanic={this.props.votePanic}
                         raisedHands={this.props.raisedHands}
+                        streams={this.props.streams}
                         />
                 );
 

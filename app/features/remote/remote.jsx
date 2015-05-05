@@ -11,6 +11,7 @@ var SlideTip = require('./slide-tip');
 var SlideTipResizer = require('./slide-tip-resizer');
 var InfoBar = require('./info-bar');
 var Hands = require('./hands');
+var StreamsController = require('./streams-controller');
 
 // store is a singletone so you get the very same object
 // everywehere you reference it!
@@ -150,6 +151,10 @@ module.exports = React.createClass({
                     voteGood={this.props.voteGood}
                     voteBored={this.props.voteBored}
                     votePanic={this.props.votePanic}
+                    />
+                <StreamsController 
+                    streams={this.props.streams} 
+                    position={tipHeight} 
                     />
                 {hands}
                 {tipResizer}

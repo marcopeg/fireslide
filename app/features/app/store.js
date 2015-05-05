@@ -34,7 +34,8 @@ var store = module.exports = Fluxo.createStore(true, {
         votePanic: 0,
         handIsUp: false,
         raisedHands: 0,
-        isStreaming: false
+        isStreaming: false,
+        streams: []
     },
 
     // actions manifesto
@@ -74,16 +75,7 @@ var store = module.exports = Fluxo.createStore(true, {
                     streamingControlServiceAtendee.requestSession();
                 }
             }
-        },
-        // {
-        //     name: 'hand',
-        //     action: firebaseService.raiseHand
-        // },
-        // {
-        //     name: 'reset-raised-hands',
-        //     action: firebaseService.resetRaisedHands
-        // },
-        {
+        },{
             name: 'request-session',
             action: function() {
                 streamingControlServiceAtendee.requestSession();
@@ -116,13 +108,13 @@ var store = module.exports = Fluxo.createStore(true, {
                         this._streamingSubscriberService.start();
                     break;
                     case 'remote':
-                        streamingControlServiceRemote.on('sessionActive', function(key, value) {
-                            streamingControlServiceRemote.startSession(key);
+                        // streamingControlServiceRemote.on('sessionActive', function(key, value) {
+                        //     streamingControlServiceRemote.startSession(key);
 
-                            setTimeout(function() {
-                                streamingControlServiceRemote.abortSession(key);
-                            }, 5000);
-                        });
+                        //     setTimeout(function() {
+                        //         streamingControlServiceRemote.abortSession(key);
+                        //     }, 5000);
+                        // });
                     break;
                 }
             }
