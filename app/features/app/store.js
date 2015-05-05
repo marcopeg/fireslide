@@ -8,8 +8,11 @@ var Fluxo = require('fluxo');
 var Firebase = require('firebase');
 var firebaseService = require('./firebase-service');
 
-var StreamingControlService = require('./services/streaming-control');
-var streamingControlService = new StreamingControlService();
+var StreamingControlServiceAtendee = require('./services/streaming-control-atendee');
+var streamingControlServiceAtendee = new StreamingControlServiceAtendee();
+
+var StreamingControlServiceRemote = require('./services/streaming-control-remote');
+var streamingControlServiceRemote = new StreamingControlServiceRemote();
 
 var store = module.exports = Fluxo.createStore(true, {
 
@@ -66,9 +69,9 @@ var store = module.exports = Fluxo.createStore(true, {
                 var currentValue = this.store.getState('handIsUp');
                 this.store.setState('handIsUp', !currentValue);
                 if (currentValue) {
-                    streamingControlService.abortSession();
+                    streamingControlServiceAtendee.abortSession();
                 } else {
-                    streamingControlService.requestSession();
+                    streamingControlServiceAtendee.requestSession();
                 }
             }
         },
@@ -83,14 +86,16 @@ var store = module.exports = Fluxo.createStore(true, {
         {
             name: 'request-session',
             action: function() {
-                streamingControlService.requestSession();
+                streamingControlServiceAtendee.requestSession();
             }
         },{
             name: 'init-services',
             action: function(mode) {
+                streamingControlServiceAtendee.removeAllListeners('sessionStarted');
+                streamingControlServiceAtendee.removeAllListeners('sessionStopped');
+                streamingControlServiceRemote.removeAllListeners('sessionActive');
+
                 if (this._streamingPublisherService) {
-                    streamingControlService.removeListener('sessionStarted', this._streamingPublisherService.start);
-                    streamingControlService.removeListener('sessionStopped', this._streamingPublisherService.stop);
                     this._streamingPublisherService.dispose();
                     this._streamingPublisherService = null;
                 }
@@ -103,12 +108,21 @@ var store = module.exports = Fluxo.createStore(true, {
                 switch(mode) {
                     case 'attendee':
                         this._streamingPublisherService = require('./services/streaming-publisher');
-                        streamingControlService.on('sessionStarted', this._streamingPublisherService.start);
-                        streamingControlService.on('sessionStopped', this._streamingPublisherService.stop);
+                        streamingControlServiceAtendee.on('sessionStarted', this._streamingPublisherService.start);
+                        streamingControlServiceAtendee.on('sessionStopped', this._streamingPublisherService.stop);
                     break;
                     case 'show':
                         this._streamingSubscriberService = require('./services/streaming-subscriber');
                         this._streamingSubscriberService.start();
+                    break;
+                    case 'remote':
+                        streamingControlServiceRemote.on('sessionActive', function(key, value) {
+                            streamingControlServiceRemote.startSession(key);
+
+                            setTimeout(function() {
+                                streamingControlServiceRemote.abortSession(key);
+                            }, 5000);
+                        });
                     break;
                 }
             }
@@ -125,19 +139,17 @@ var store = module.exports = Fluxo.createStore(true, {
     init() {
         this.trigger('init-services', this.state.mode);
 
-        streamingControlService.on('sessionActive', function(val) {
+        streamingControlServiceAtendee.on('sessionActive', function(val) {
             this.setState('handIsUp', val);
         }.bind(this));
 
-        streamingControlService.on('sessionStarted', function(val) {
+        streamingControlServiceAtendee.on('sessionStarted', function(val) {
             this.setState('isStreaming', true);
         }.bind(this));
 
-        streamingControlService.on('sessionStopped', function(val) {
+        streamingControlServiceAtendee.on('sessionStopped', function(val) {
             this.setState('isStreaming', false);
         }.bind(this));
-
-
     },
 
     onNewSlides(slides) {
