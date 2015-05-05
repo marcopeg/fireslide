@@ -6,6 +6,7 @@
 var React = require('react');
 var TouchClick = require('elements/touch-click');
 var firebaseService = require('../app/firebase-service');
+var store = require('../app/store');
 
 module.exports = React.createClass({
 
@@ -45,7 +46,11 @@ module.exports = React.createClass({
                 className += ' streaming-btn';
             }
 
-            var avatarUrl = "/assets/avatars/00" + ( Math.floor(Math.random() * 5) + 1 ) + ".jpg";
+            var avatarUrl = "/assets/avatars/00" + ( Math.floor(Math.random() * 4) + 1 ) + ".jpg";
+            console.log(stream);
+            if (stream.isFilip) {
+                avatarUrl = "assets/avatars/fil.jpg";
+            }
             var avatar = <img src={avatarUrl} />;
 
             return (

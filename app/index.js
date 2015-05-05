@@ -5,8 +5,8 @@
  */
 
 var React = require('react');
-var App = require('app');
 var store = require('app/store');
+var App = require('app');
 var router = require('jqb-router');
 
 // startup touch events handling
@@ -25,6 +25,9 @@ router.init({
     },
     '/remote': function() {
         store.trigger('change-mode', 'remote');
+    },
+    '/fil': function() {
+        store.trigger('set-filip');
     }
 });
 

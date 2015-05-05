@@ -35,7 +35,8 @@ var store = module.exports = Fluxo.createStore(true, {
         handIsUp: false,
         raisedHands: 0,
         isStreaming: false,
-        streams: []
+        streams: [],
+        isFilip: false
     },
 
     // actions manifesto
@@ -50,6 +51,7 @@ var store = module.exports = Fluxo.createStore(true, {
         'set-tip-resizing',
         'next',
         'prev',
+        'set-filip',
         {
             name: 'vote',
             action: firebaseService.vote
@@ -234,6 +236,13 @@ var store = module.exports = Fluxo.createStore(true, {
             return;
         }
         this.trigger('set-slide', prev);
+    },
+
+    onSetFilip() {
+        this.setState({
+            mode: 'attendee',
+            isFilip: true
+        });
     }
 
 });
@@ -263,3 +272,8 @@ function isTouchDevice() {
         return false;
     }
 }
+
+
+streamingControlServiceAtendee.setStore(store);
+
+
