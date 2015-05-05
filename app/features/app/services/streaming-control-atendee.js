@@ -2,7 +2,7 @@ var Firebase = require('firebase');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 
-var dbUrl = 'https://babeltext.firebaseio.com';
+var dbUrl = 'https://fireslide.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 

@@ -4,12 +4,14 @@
  */
 
 var router = require('jqb-router');
+var store = require('app/store');
 
 var React = require('react');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Slide = require('elements/slide');
 var Loading = require('elements/loading');
+var Poll = require('./poll');
 
 module.exports = React.createClass({
 
@@ -62,7 +64,7 @@ module.exports = React.createClass({
     },
 
     render() {
-
+        //console.log('show render()');
         var slide = null;
         var src = this.props.slides[this.props.current];
 
@@ -73,10 +75,16 @@ module.exports = React.createClass({
             }
         }
 
+        var poll;
+        if(store.getState('showPoll') && this.props.currentPoll) {
+            poll = (<Poll data={this.props.currentPoll}/>);
+        }
+
         return (
             <div ref="slideshow" onClick={this._fullScreen}>
                 <div id="subscribedDiv"></div>
                 {slide}
+                {poll}
                 <Loading visible={!this.props.syncing} />
             </div>
 
