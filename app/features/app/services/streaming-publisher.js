@@ -1,24 +1,43 @@
+/*
+we don't load OpenTok on iOS devices for now
+*/
+
 var OT = require('opentok');
-var config = require('./opentok-config');
+function noop() {}
 
-var _session = OT.initSession(config.apiKey, config.sessionId);
+if (OT) {
 
-module.exports = {
-    start: function() {
-        _session.connect(config.token, function(error) {
-            if (error) {
-                console.log(error.message);
-            } else {
-                _session.publish('attendeeStreamingTarget', {width: 320, height: 240});
-            }
-        });
-    },
+    var config = require('./opentok-config');
 
-    stop: function() {
-        _session.disconnect();
-    },
+    var _session = OT.initSession(config.apiKey, config.sessionId);
 
-    dispose: function() {
-        this.stop();
-    }
-};
+    module.exports = {
+        start: function() {
+            _session.connect(config.token, function(error) {
+                if (error) {
+                    console.log(error.message);
+                } else {
+                    _session.publish('attendeeStreamingTarget', {width: 320, height: 240});
+                }
+            });
+        },
+
+        stop: function() {
+            _session.disconnect();
+        },
+
+        dispose: function() {
+            this.stop();
+        }
+    };
+
+
+
+} else {
+
+    module.exports = {
+        start: noop,
+        stop: noop,
+        dispose: noop
+    };
+}

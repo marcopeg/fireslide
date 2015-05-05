@@ -444,23 +444,31 @@ and (orientation : landscape) {
     .transition(all @animationDuration @animationEasing);
     position: fixed;
     top: 0;
-    left: 0;
-
-    margin: 10px;
-    padding: 10px;
-    background-color: rgba(255,255,255,.5);
-    color: #fff;
-    text-shadow: 0 1px #666;
+    left: 10px;
+    margin-top: 10px;
 
     .stream-btn {
-        border: 2px solid black;
+        display: inline-block;
+        border: 3px solid #fff;
+        border-radius: 100%;
+        overflow: hidden;
+        margin-right: 10px;
+
+        img {
+            float: left;
+
+            &:after {
+                content: "";
+                clear:both;
+            }
+        }
 
         &.active {
-            background: yellow;
+            border-color: yellow;
         }
     }
 
     .streaming-btn {
-        background: green;
+        border-color: lime;
     }
 }

@@ -45,12 +45,15 @@ module.exports = React.createClass({
                 className += ' streaming-btn';
             }
 
+            var avatarUrl = "/assets/avatars/00" + ( Math.floor(Math.random() * 5) + 1 ) + ".jpg";
+            var avatar = <img src={avatarUrl} />;
+
             return (
                 <TouchClick 
                     key={streamId} 
                     className={className}
                     onAction={this._onClick.bind(this, stream)}
-                    >{streamId}</TouchClick>
+                    >{avatar}</TouchClick>
             );
         }.bind(this));
 
@@ -62,11 +65,6 @@ module.exports = React.createClass({
             <div className="streams-controller" style={style}>
                 {streams}
             </div>
-            // <TouchClick className={className} style={style} onAction={this._onClick}>
-            //     <span>
-            //         {this.props.value}
-            //     </span>
-            // </TouchClick>
         );
     }
 
