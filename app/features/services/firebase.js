@@ -4,6 +4,14 @@ var Firebase = require('firebase');
 var dbUrl = 'https://fireslide.firebaseio.com';
 var db = new Firebase(dbUrl);
 
+exports.getUrl = function() {
+    return dbUrl;
+};
+
+exports.getDb = function() {
+    return db;
+};
+
 exports.syncMixin = {
     init: function() {
         console.log('live');

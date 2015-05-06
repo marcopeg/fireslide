@@ -1,9 +1,11 @@
-var Firebase = require('firebase');
+// var Firebase = require('firebase');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 
-var dbUrl = 'https://fireslide.firebaseio.com';
-var db = new Firebase(dbUrl);
+var firebaseService = require('./firebase');
+var db = firebaseService.getDb();
+// var dbUrl = 'https://fireslide.firebaseio.com';
+// var db = new Firebase(dbUrl);
 
 
 function StreamingControlServiceAtendee() {

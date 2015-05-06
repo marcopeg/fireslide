@@ -5,7 +5,7 @@
 
 var React = require('react');
 var TouchClick = require('elements/touch-click');
-var firebaseService = require('../app/firebase-service');
+var firebaseService = require('services/firebase');
 var store = require('../app/store');
 
 module.exports = React.createClass({

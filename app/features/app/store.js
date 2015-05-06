@@ -6,12 +6,12 @@
 
 var Fluxo = require('fluxo');
 var Firebase = require('firebase');
-var firebaseService = require('./firebase-service');
+var firebaseService = require('services/firebase');
 
-var StreamingControlServiceAtendee = require('./services/streaming-control-atendee');
+var StreamingControlServiceAtendee = require('services/streaming-control-atendee');
 var streamingControlServiceAtendee = new StreamingControlServiceAtendee();
 
-var StreamingControlServiceRemote = require('./services/streaming-control-remote');
+var StreamingControlServiceRemote = require('services/streaming-control-remote');
 var streamingControlServiceRemote = new StreamingControlServiceRemote();
 
 var store = module.exports = Fluxo.createStore(true, {
@@ -104,12 +104,12 @@ var store = module.exports = Fluxo.createStore(true, {
 
                 switch(mode) {
                     case 'attendee':
-                        this._streamingPublisherService = require('./services/streaming-publisher');
+                        this._streamingPublisherService = require('services/streaming-publisher');
                         streamingControlServiceAtendee.on('sessionStarted', this._streamingPublisherService.start);
                         streamingControlServiceAtendee.on('sessionStopped', this._streamingPublisherService.stop);
                     break;
                     case 'show':
-                        this._streamingSubscriberService = require('./services/streaming-subscriber');
+                        this._streamingSubscriberService = require('services/streaming-subscriber');
                         this._streamingSubscriberService.start();
                     break;
                     case 'remote':
