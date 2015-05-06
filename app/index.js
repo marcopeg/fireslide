@@ -28,6 +28,9 @@ router.init({
     },
     '/fil': function() {
         store.trigger('set-filip');
+    },
+    '/watch': function() {
+        store.trigger('change-mode', 'watch');
     }
 });
 

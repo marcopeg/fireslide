@@ -235,7 +235,7 @@ html, body {
 
     display: block;
     width: 45%;
-    height: 120px;
+    height: 90px;
     // border-radius: 100%;
 
     background-color: #000;
@@ -393,7 +393,7 @@ and (orientation : landscape) {
     bottom: auto;
     height: 80px;
     overflow: hidden;
-    border-bottom: 1px solid #fff;
+    // border-bottom: 1px solid #fff;
 
     .vote-info-good, .vote-info-bored, .vote-info-panic {
         .transition(width @animationDuration @animationEasing);
@@ -519,21 +519,23 @@ and (orientation : landscape) {
 }
 
 .poll-button {
-    height: 120px;
-    width: 120px;
-    line-height: 120px;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
     background-color: @blue;
     color: #fff;
-    font-size: 80pt;
+    font-size: 40pt;
     text-align: center;
     border-radius: 50%;
     z-index: 2;
     position: absolute;
-    bottom: 0;
+    bottom: 1%;
     left: 50%;
     transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
     cursor: pointer;
     box-shadow: 0 0 30px rgba(255,255,255,0.3);
+    border: 2px solid #fff;
     &:hover {
         background-color: darken(@blue, 20%);
     }
@@ -778,4 +780,10 @@ and (orientation : landscape) {
     .streaming-btn {
         border-color: lime;
     }
+}
+
+
+
+.slide-button-watch {
+    height: 40px !important;
 }

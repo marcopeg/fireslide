@@ -7,6 +7,7 @@
 var React = require('react');
 var Show = require('show');
 var Remote = require('remote');
+var Watch = require('watch');
 var Attendee = require('attendee');
 
 module.exports = React.createClass({
@@ -26,6 +27,24 @@ module.exports = React.createClass({
             case 'remote':
                 return (
                     <Remote 
+                        slides={this.props.slides} 
+                        tips={this.props.tips} 
+                        polls={this.props.polls}
+                        current={this.props.current} 
+                        useTouch={this.props.useTouch}
+                        tipHeight={this.props.tipHeight}
+                        tipIsResizing={this.props.tipIsResizing}
+                        voteGood={this.props.voteGood}
+                        voteBored={this.props.voteBored}
+                        votePanic={this.props.votePanic}
+                        raisedHands={this.props.raisedHands}
+                        streams={this.props.streams}
+                        />
+                );
+
+            case 'watch':
+                return (
+                    <Watch 
                         slides={this.props.slides} 
                         tips={this.props.tips} 
                         polls={this.props.polls}

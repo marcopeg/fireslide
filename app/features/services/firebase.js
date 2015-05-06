@@ -1,7 +1,7 @@
 
 var Firebase = require('firebase');
 
-var dbUrl = 'https://fireslide.firebaseio.com';
+var dbUrl = 'https://babeltext.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 exports.getUrl = function() {
@@ -38,7 +38,7 @@ exports.syncMixin = {
 
         // remote behaviour: update back from state to remote sync point
         store.emitter.on('state-changed', function(state) {
-            if ('remote' === state.mode) {
+            if (['remote','watch'].indexOf(state.mode) !== -1) {
                 currentSlide.set(state.current);
             }
         });
