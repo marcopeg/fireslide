@@ -1,7 +1,7 @@
 
 var Firebase = require('firebase');
 
-var dbUrl = 'https://babeltext.firebaseio.com';
+var dbUrl = 'https://fireslide.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 exports.getUrl = function() {

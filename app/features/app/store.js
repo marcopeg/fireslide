@@ -110,7 +110,7 @@ var store = module.exports = Fluxo.createStore(true, {
                     break;
                     case 'show':
                         this._streamingSubscriberService = require('services/streaming-subscriber');
-                        this._streamingSubscriberService.start();
+                        this._streamingSubscriberService.start(this.store);
                     break;
                     case 'remote':
                         // streamingControlServiceRemote.on('sessionActive', function(key, value) {

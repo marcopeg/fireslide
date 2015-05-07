@@ -64,7 +64,6 @@ module.exports = React.createClass({
     },
 
     render() {
-        //console.log('show render()');
         var slide = null;
         var src = this.props.slides[this.props.current];
 
@@ -80,9 +79,13 @@ module.exports = React.createClass({
             poll = (<Poll data={this.props.currentPoll}/>);
         }
 
+        var streamingClassName = store.getState('isStreaming') ? 'active' : '';
+
         return (
             <div ref="slideshow" onClick={this._fullScreen}>
-                <div id="subscriberDiv"></div>
+                <div id="subscriberDiv" className={streamingClassName}>
+                    <div id="subscriberName">Marco Pegoraro</div>
+                </div>
                 {slide}
                 {poll}
                 <Loading visible={!this.props.syncing} />
