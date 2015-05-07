@@ -24,7 +24,7 @@ var store = module.exports = Fluxo.createStore(true, {
         polls: [],
         pollResult: null,
         cached: 0,
-        current: 0,
+        current: null,
         syncing: false,             // turn true after the first sync-value from firebase
         transition: null,           // visual transition for the slideshow
         useTouch: isTouchDevice(),  // whether to use touch optimised components
@@ -166,7 +166,7 @@ var store = module.exports = Fluxo.createStore(true, {
         // instead of dramatically change the app's structure
         // I choose to manipulate the rich slides list and to
         // separate urls from tips in two state properties
-        console.log('onNewSlides', slides);
+        // console.log('onNewSlides', slides);
         var tips = [];
         var polls = [];
         slides = slides.map(function(slide) {

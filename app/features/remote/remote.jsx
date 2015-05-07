@@ -20,12 +20,12 @@ var store = require('app/store');
 
 module.exports = React.createClass({
     
-    propTypes: {
-        slides: React.PropTypes.array.isRequired,
-        tips: React.PropTypes.array.isRequired,
-        current: React.PropTypes.number.isRequired,
-        useTouch: React.PropTypes.bool.isRequired
-    },
+    // propTypes: {
+    //     slides: React.PropTypes.array.isRequired,
+    //     tips: React.PropTypes.array.isRequired,
+    //     current: React.PropTypes.number.isRequired,
+    //     useTouch: React.PropTypes.bool.isRequired
+    // },
     
     getDefaultProps() {
         return {

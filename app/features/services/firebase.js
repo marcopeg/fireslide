@@ -14,7 +14,7 @@ exports.getDb = function() {
 
 exports.syncMixin = {
     init: function() {
-        console.log('live');
+        // console.log('live');
         var store = this.store;
 
         var currentSlide = db.child('currentSlide');
@@ -37,11 +37,18 @@ exports.syncMixin = {
         });
 
         // remote behaviour: update back from state to remote sync point
-        store.emitter.on('state-changed', function(state) {
-            if (['remote','watch'].indexOf(state.mode) !== -1) {
-                currentSlide.set(state.current);
-            }
-        });
+        var __delay;
+        setTimeout(function() {
+            store.emitter.on('state-changed', function(state) {
+                clearTimeout(__delay);
+                __delay = setTimeout(function() {
+                    // console.log('state changed', state.current);    
+                    if (['remote','watch'].indexOf(state.mode) !== -1) {
+                        currentSlide.set(state.current ? state.current : 0);
+                    } 
+                });
+            });
+        },300);
 
         // retreive live feedback and keep it update within the feedback interval
         var timeout = store.getState('feedbackInterval');

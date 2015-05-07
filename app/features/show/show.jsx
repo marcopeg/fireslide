@@ -15,12 +15,12 @@ var Poll = require('./poll');
 
 module.exports = React.createClass({
 
-    propTypes: {
-        slides: React.PropTypes.array.isRequired,
-        current: React.PropTypes.number.isRequired,
-        syncing: React.PropTypes.bool.isRequired,
-        transition: React.PropTypes.oneOf([null, 'fade', 'h-slide', 'v-slide'])
-    },
+    // propTypes: {
+    //     slides: React.PropTypes.array.isRequired,
+    //     current: React.PropTypes.number.isRequired,
+    //     syncing: React.PropTypes.bool.isRequired,
+    //     transition: React.PropTypes.oneOf([null, 'fade', 'h-slide', 'v-slide'])
+    // },
 
     getDefaultProps() {
         return {
