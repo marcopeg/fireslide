@@ -48,7 +48,7 @@ exports.syncMixin = {
                     } 
                 });
             });
-        },300);
+        },1500);
 
         // retreive live feedback and keep it update within the feedback interval
         var timeout = store.getState('feedbackInterval');
