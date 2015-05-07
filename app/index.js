@@ -37,6 +37,7 @@ router.init({
 // fake async slides data loading
 setTimeout(function() {
     var presentationData = require('presentation-data');
+    store.trigger('set-meta', presentationData.meta);
     store.trigger('new-slides', presentationData.slides);
     store.trigger('set-transition', presentationData.transition);
 });

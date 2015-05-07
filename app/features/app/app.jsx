@@ -40,6 +40,7 @@ module.exports = React.createClass({
                 <MainUi 
                     mode={this.state.mode}
                     syncing={this.state.syncing}
+                    meta={this.state.meta}
                     slides={this.state.slides} 
                     tips={this.state.tips} 
                     polls={this.state.polls}

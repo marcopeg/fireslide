@@ -64,6 +64,7 @@ module.exports = React.createClass({
                 return (
                     <Attendee 
                         syncing={this.props.syncing}
+                        meta={this.props.meta}
                         slides={this.props.slides} 
                         currentPoll={this.props.currentPoll}
                         current={this.props.current} 

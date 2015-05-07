@@ -1,7 +1,7 @@
 
 var Firebase = require('firebase');
 
-var dbUrl = 'https://fireslide.firebaseio.com';
+var dbUrl = 'https://dwingle.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 exports.getUrl = function() {

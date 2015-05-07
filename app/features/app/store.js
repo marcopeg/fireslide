@@ -19,6 +19,7 @@ var store = module.exports = Fluxo.createStore(true, {
     // initial data schema
     initialState: {
         mode: 'attendee',           // show | remote | attendee
+        meta: {},
         slides: [],
         tips: [],
         polls: [],
@@ -44,6 +45,7 @@ var store = module.exports = Fluxo.createStore(true, {
 
     // actions manifesto
     actions: [
+        'set-meta',                 // presentation meta-data
         'new-slides',               // slides data file is loaded from the server
         'slide-cache',              // a slingle slide has been cached
         'change-mode',              // set a new application user mode
@@ -74,6 +76,9 @@ var store = module.exports = Fluxo.createStore(true, {
             action: function() {
                 var currentValue = this.store.getState('handIsUp');
                 this.store.setState('handIsUp', !currentValue);
+                if (!this.store.getState('isFilip')) {
+                    return;
+                }
                 if (currentValue) {
                     streamingControlServiceAtendee.abortSession();
                 } else {
@@ -159,6 +164,10 @@ var store = module.exports = Fluxo.createStore(true, {
         streamingControlServiceAtendee.on('sessionStopped', function(val) {
             this.setState('isStreaming', false);
         }.bind(this));
+    },
+
+    onSetMeta(meta) {
+        this.setState({meta: meta});
     },
 
     onNewSlides(slides) {
