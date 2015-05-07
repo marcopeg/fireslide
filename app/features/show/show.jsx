@@ -82,7 +82,7 @@ module.exports = React.createClass({
 
         return (
             <div ref="slideshow" onClick={this._fullScreen}>
-                <div id="subscribedDiv"></div>
+                <div id="subscriberDiv"></div>
                 {slide}
                 {poll}
                 <Loading visible={!this.props.syncing} />
