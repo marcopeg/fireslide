@@ -11,6 +11,7 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var TouchClick = require('elements/touch-click');
 var Slide = require('elements/slide');
+var SlideHeader = require('elements/slide-header');
 var Loading = require('elements/loading');
 var Vote = require('./vote');
 var Poll = require('./poll');
@@ -18,6 +19,7 @@ var Poll = require('./poll');
 module.exports = React.createClass({
 
     propTypes: {
+        meta: React.PropTypes.object.isRequired,
         slides: React.PropTypes.array.isRequired,
         current: React.PropTypes.number.isRequired,
         syncing: React.PropTypes.bool.isRequired,
@@ -93,6 +95,46 @@ module.exports = React.createClass({
         }
 
         return (
+            <div key="attendeeUi" className="attendee-ui">
+                <SlideHeader 
+                    conference={this.props.meta.conference} 
+                    title={this.props.meta.title}
+                    speaker={this.props.meta.speaker}
+                    twitter={this.props.meta.twitter} />
+                <div className="attendee-actions">
+                    <ul>
+                        <li className="attendee-action attendee-confused">
+                            <span className="action-avatar"></span>
+                            <span className="action-avatar-bg"></span>
+                            <span className="action-text">Please, elaborate</span>
+                        </li>
+                        <li className="attendee-action attendee-sleepy">
+                            <span className="action-avatar">
+                                <img className="action-avatar-still" src="assets/images/MoveOn_still.png" />
+                                <img className="action-avatar-live" src="assets/images/MoveOn_anim.gif" />
+                            </span>
+                            <span className="action-avatar-bg"></span>
+                            <span className="action-text">Move on... zZzZz</span>
+                        </li>
+                        <li className="attendee-action attendee-excited">
+                            <span className="action-avatar"></span>
+                            <span className="action-avatar-bg"></span>
+                            <span className="action-text">Yes! I love it!</span>
+                        </li>
+                        <li className="attendee-action attendee-question">
+                            <span className="action-avatar">
+                                <img className="action-avatar-still" src="assets/images/PickMe_still.png" />
+                                <img className="action-avatar-live" src="assets/images/PickMe2.gif" />
+                            </span>
+                            <span className="action-avatar-bg"></span>
+                            <span className="action-text">Oh! Pick me, pick me</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+
+        /*return (
             <div key="attendeeUi">
                 <TouchClick onAction={this._toggleRaisedHand} >
                     {slide}
@@ -106,7 +148,7 @@ module.exports = React.createClass({
                 {poll}
                 <Loading visible={!this.props.syncing} />
             </div>
-        );
+        );*/
     }
 
 });
