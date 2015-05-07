@@ -1,0 +1,4 @@
+[submodule "app/g2mfree-sdk"]
+	path = app/g2mfree-sdk
+	url = git@github.com:citrix-research/hackweek-g2m-free-sdk.git
+	branch = relative_require

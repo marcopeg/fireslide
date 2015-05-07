@@ -1,24 +1,50 @@
 var OT = require('opentok');
 var config = require('./opentok-config');
 
-var _session = OT.initSession(config.apiKey, config.sessionId);
+var freeSDK = require('../../../g2mfree-sdk/G2MFreeSDK');
+
+var streamIds = {};
+
+function onPeerJoined(stream, streamId) {
+    var elm = document.createElement('video');
+    var elmDiv = document.createElement('div');
+
+    elmDiv.className = 'subscriberDiv';
+    elmDiv.style.position = 'absolute';
+
+    elm.autoplay = 'true';
+    elm.id = streamId;
+
+    streamIds[streamId] = true;
+
+    elmDiv.appendChild(elm);
+    document.body.appendChild(elmDiv);
+
+    attachMediaStream(elm, stream);
+}
+
+function onPeerStopped(streamId) {
+    document.getElementById(streamId).remove();
+
+    delete streamIds[streamId];
+}
 
 module.exports = {
     start: function() {
-        _session.connect(config.token, function(error) {
-            if (error) {
-                console.log(error.message);
-            }
+        freeSDK.join('fireslide123').catch(function(err) {
+            console.log(err);
         });
-        _session.on({
-            streamCreated: function(event) {
-                _session.subscribe(event.stream, 'subscriberDiv', {insertMode: 'append'});
-            }
-        });
+
+        freeSDK.signals.onRemoteStreamAvailabile.add(onPeerJoined);
+        freeSDK.signals.onRemoteStreamStopped.add(onPeerStopped);
     },
 
     stop: function() {
-        _session.disconnect();
+        freeSDK.leave().then(function() {
+            Object.keys(streamIds).forEach(function(streamId) {
+                document.getElementById(streamId).remove();
+            });
+        });
     },
 
     dispose: function() {

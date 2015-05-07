@@ -2,6 +2,7 @@ npm-debug.log
 node_modules
 /build/
 /coverage/
+.idea
 
 app/assets/react-0.12.2/README.md
 app/assets/react-0.12.2/examples/
