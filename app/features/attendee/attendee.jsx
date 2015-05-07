@@ -60,14 +60,6 @@ module.exports = React.createClass({
 
     render() {
 
-        if (this.props.isStreaming) {
-            return (
-                <div key="streamingUi">streaming!
-                    <div id="attendeeStreamingTarget"></div>
-                </div>
-            );
-        }
-
         var slide = null;
         var hand = null;
         var poll = null;
@@ -92,8 +84,17 @@ module.exports = React.createClass({
             poll = <Poll data={this.props.currentPoll} />;
         }
 
+        var streamingClassName = '';
+        if (this.props.isStreaming) {
+            streamingClassName = 'active';
+        }
+
         return (
             <div key="attendeeUi">
+                <div key="streamingUi" id="streamingUi" className={streamingClassName}>
+                    <div id="attendeeStreamingTarget"></div>
+                    <button className="end-streaming" onClick={this._toggleRaisedHand}>Stop Streaming</button>
+                </div>
                 <TouchClick onAction={this._toggleRaisedHand} >
                     {slide}
                     {hand}
