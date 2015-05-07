@@ -102,9 +102,9 @@ module.exports = React.createClass({
             poll = <Poll data={this.props.currentPoll} />;
         }
 
-        var raisedHandClass = 'attendee-action attendee-question';
+        var actionsClass = 'attendee-actions';
         if (store.getState('handIsUp')) {
-            raisedHandClass += ' is-active';
+            actionsClass += ' hand-raised';
         }
 
         var actions = {
@@ -154,7 +154,7 @@ module.exports = React.createClass({
                     title={this.props.meta.title}
                     speaker={this.props.meta.speaker}
                     twitter={this.props.meta.twitter} />
-                <div className="attendee-actions">{actionItems}</div>
+                <div className={actionsClass}>{actionItems}</div>
                 {poll}
                 <Loading visible={!this.props.syncing} />
             </div>
