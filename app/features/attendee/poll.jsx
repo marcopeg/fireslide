@@ -22,7 +22,7 @@ module.exports = React.createClass({
         var value = getSelectedValue.call(this);
         if(value) {
             store.trigger('update-poll', value);
-            //this.setState({voted: true});
+            this.setState({voted: true});
         }
     },
     _onClick(e) {

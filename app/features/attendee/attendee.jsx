@@ -116,7 +116,7 @@ module.exports = React.createClass({
             },
             'question': {
                 image: 'PickMe',
-                text: 'Oh! Pick me, pick me',
+                text: 'Oh! Pick me',
                 duration: 2000
             }
         };
