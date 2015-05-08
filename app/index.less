@@ -977,11 +977,14 @@ and (orientation : landscape) {
     right: 0;
     bottom: 0;
     left: 0;
+    -webkit-transform: translate(2px,-1px);
     transform: translate(2px,-1px);
+    -webkit-transition: background-color 200ms linear;
     transition: background-color 200ms linear;
 }
 
 .attendee-good .action-avatar > img {
+    -webkit-transform: scale(0.8) translate(0, 10px);
     transform: scale(0.8) translate(0, 10px);
 }
 
@@ -1023,9 +1026,11 @@ and (orientation : landscape) {
         left: 50%;
         top: 15%;
         z-index: 3;
+        -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
     }
     &:after {
+        -webkit-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
 }
