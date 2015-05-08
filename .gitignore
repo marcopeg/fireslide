@@ -3,6 +3,7 @@ node_modules
 /build/
 /coverage/
 .node-version
+.idea
 
 app/assets/react-0.12.2/README.md
 app/assets/react-0.12.2/examples/
