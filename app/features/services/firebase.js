@@ -2,6 +2,7 @@
 var Firebase = require('firebase');
 
 var dbUrl = 'https://dwingle.firebaseio.com';
+//var dbUrl = 'https://fireslide-polls.firebaseio.com';
 var db = new Firebase(dbUrl);
 
 exports.getUrl = function() {
