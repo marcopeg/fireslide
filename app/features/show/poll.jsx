@@ -42,6 +42,7 @@ module.exports = React.createClass({
                 <div className="poll-bar">
                     <div className="poll-bar-progress" ref={ref} key={ref} style={barStyle}></div>
                     <div className="poll-bar-title">{answer.answer}</div>
+                    <div className="poll-bar-votes">{answer.votes}</div>
                 </div>
             );
         }.bind(this));
