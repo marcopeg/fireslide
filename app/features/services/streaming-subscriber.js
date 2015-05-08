@@ -1,6 +1,3 @@
-var OT = require('opentok');
-var config = require('./opentok-config');
-
 var freeSDK = require('../../g2mfree-sdk/G2MFreeSDK');
 
 var streamIds = {};
@@ -31,7 +28,7 @@ function onPeerStopped(streamId) {
 
 module.exports = {
     start: function(store) {
-        freeSDK.join('fireslide123').catch(function(err) {
+        freeSDK.join('fireslide124').catch(function(err) {
             console.log(err);
         });
 

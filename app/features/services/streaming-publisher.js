@@ -2,28 +2,38 @@
 we don't load OpenTok on iOS devices for now
 */
 
-var OT = require('opentok');
+var browserDetection = require('./detect-browser');
+var freeSDK = require('../../g2mfree-sdk/G2MFreeSDK');
+
 function noop() {}
 
-if (OT) {
+function onPeerJoined(stream, streamId) {
+    var elm = document.createElement('video');
+    var elmTarget = document.getElementById('attendeeStreamingTarget');
 
-    var config = require('./opentok-config');
+    elm.autoplay = 'true';
+    elm.id = streamId;
 
-    var _session = OT.initSession(config.apiKey, config.sessionId);
+    elmTarget.appendChild(elm);
+
+    attachMediaStream(elm, stream);
+}
+
+if (browserDetection.useAV) {
 
     module.exports = {
         start: function() {
-            _session.connect(config.token, function(error) {
-                if (error) {
-                    console.log(error.message);
-                } else {
-                    _session.publish('attendeeStreamingTarget', {width: 520, height: 240});
-                }
+            freeSDK.join('fireslide124').catch(function(err) {
+                console.log(err);
             });
+
+            freeSDK.signals.onLocalStreamAvailabile.add(onPeerJoined);
         },
 
         stop: function() {
-            _session.disconnect();
+            freeSDK.leave().then(function() {
+                document.getElementById('local').remove();
+            });
         },
 
         dispose: function() {

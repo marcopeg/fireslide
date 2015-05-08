@@ -110,20 +110,5 @@
         <!-- Libs -->
         <script type="text/javascript" src="./assets/firebase.js"></script>
         <script type="text/javascript" src="./assets/react-0.12.2/build/react-with-addons.js"></script>
-        <script type="text/javascript">
-        // console.log(navigator.userAgent);
-        var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
-        var Safari = ( navigator.userAgent.match(/(Safari)/g) ? true : false );
-        var Chrome = ( navigator.userAgent.match(/(Chrome)/g) ? true : false );
-        var useOT = !iOS;
-        if (Safari && !Chrome) {
-            useOT = false;
-        }
-
-        // console.log(iOS, Safari, Chrome, useOT);
-        if (useOT) {
-            document.write('<script src="./assets/opentok-2.5.1/opentok.min.js"><' + '/script>');
-        }
-        </script>
     </body>
 </html>
